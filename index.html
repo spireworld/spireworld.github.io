@@ -184,7 +184,15 @@ h1.hero-title .o{color:var(--orange);}
 
 /* SHOP */
 #shop{background:var(--bg);}
-.shop-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:32px;}
+.shop-servers {display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap;}
+.server-tab {
+  background:var(--bg2); border:1.5px solid var(--border); color:var(--text);
+  padding:10px 24px; border-radius:12px; font-family:'Syne',sans-serif; font-size:15px; font-weight:800;
+  cursor:pointer; transition:all .2s;
+}
+.server-tab:hover, .server-tab.active {background:var(--text); border-color:var(--text); color:#fff;}
+
+.shop-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:32px; padding-top:15px; border-top:1px solid var(--border);}
 .shop-tab{
   background:var(--white);border:1.5px solid var(--border);
   color:var(--text2);padding:7px 16px;border-radius:100px;
@@ -264,32 +272,6 @@ h1.hero-title .o{color:var(--orange);}
 .pr-n{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--orange);}
 .pr-l{font-size:11px;color:var(--text3);}
 
-/* LEADERBOARD */
-#leaderboard{background:var(--white);}
-.lb-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;}
-.lb-hd{
-  display:grid;grid-template-columns:52px 1fr 100px 110px 120px 1fr;
-  background:var(--bg);border-bottom:1.5px solid var(--border);padding:10px 18px;
-}
-.lb-hd span{font-size:10px;font-weight:800;color:var(--text3);letter-spacing:1px;text-transform:uppercase;}
-.lb-row{
-  display:grid;grid-template-columns:52px 1fr 100px 110px 120px 1fr;
-  align-items:center;padding:13px 18px;border-bottom:1px solid var(--border);
-  transition:background .1s;
-}
-.lb-row:last-child{border-bottom:none;}
-.lb-row:hover{background:var(--bg);}
-.lb-rank{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;}
-.r1{color:#F59E0B;}.r2{color:#9CA3AF;}.r3{color:#CD7F32;}
-.lb-pl{display:flex;align-items:center;gap:9px;}
-.lb-av{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.lb-nm{font-size:14px;font-weight:800;color:var(--text);}
-.lb-mode{font-size:13px;color:var(--text2);font-weight:600;}
-.lb-rn{display:inline-block;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;}
-.lb-sc{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--orange);}
-.lb-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-right:8px;}
-.lb-fill{height:100%;background:var(--orange);border-radius:3px;}
-
 /* RULES */
 #rules{background:var(--bg);}
 .rules-inner{max-width:700px;}
@@ -324,7 +306,7 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
 .soc{width:33px;height:33px;border:1px solid rgba(255,255,255,.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .15s;}
 .soc:hover{background:rgba(242,100,25,.15);border-color:var(--orange);}
 
-/* MODAL */
+/* MODALS */
 .overlay{position:fixed;inset:0;background:rgba(20,12,6,.5);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px);}
 .overlay.open{opacity:1;pointer-events:all;}
 .modal{background:var(--white);border-radius:18px;padding:34px;max-width:420px;width:90%;border:1.5px solid var(--border);transform:scale(.96);transition:transform .2s;}
@@ -343,7 +325,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
-/* ВИПРАВЛЕНО БАГ З МОБІЛЬНИМ МЕНЮ */
 @media(max-width:768px){
   nav{padding:0 16px; overflow-x: auto;}
   .nav-links{display:flex; padding-bottom: 4px;}
@@ -354,8 +335,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   .features-sec{padding:44px 18px;}
   .start-grid{grid-template-columns:1fr;}
   .fg{grid-template-columns:1fr 1fr;}
-  .lb-hd,.lb-row{grid-template-columns:44px 1fr 90px;}
-  .lb-hd span:nth-child(n+4),.lb-row>*:nth-child(n+4){display:none;}
 }
 </style>
 </head>
@@ -371,7 +350,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
     <li><a onclick="show('start')">Почати грати</a></li>
     <li><a onclick="show('shop')">Магазин</a></li>
     <li><a onclick="show('forum')">Форум</a></li>
-    <li><a onclick="show('leaderboard')">Топ гравці</a></li>
     <li><a onclick="show('rules')">Правила</a></li>
     <li><a class="cta" onclick="show('start')">▶ Грати</a></li>
   </ul>
@@ -434,7 +412,7 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
             <div class="srv-row"><span class="sr-l">Порт</span><span class="sr-v">25565</span></div>
             <div class="srv-row"><span class="sr-l">Версія</span><span class="sr-v">1.8 – 1.20.4</span></div>
             <div class="srv-row"><span class="sr-l">Ядро</span><span class="sr-v">Paper + Velocity</span></div>
-            <div class="srv-row"><span class="sr-l">Режими</span><span class="sr-v">Survival, SkyBlock, PvP, Creative</span></div>
+            <div class="srv-row"><span class="sr-l">Режими</span><span class="sr-v">Grief, Anarchy, BedWars</span></div>
             <div class="srv-row"><span class="sr-l">Макс. гравців</span><span class="sr-v">500</span></div>
             <div class="srv-row"><span class="sr-l">Пінг (UA)</span><span class="sr-v">~12 ms</span></div>
             <div class="srv-row"><span class="sr-l">Аптайм</span><span class="sr-v">99.9%</span></div>
@@ -451,13 +429,18 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
       <div class="sec-lbl">Підтримати сервер</div>
       <div class="sec-title">Магазин <span>донатів</span></div>
     </div>
-    <div class="shop-tabs">
-      <button class="shop-tab active" onclick="filterShop('ranks',this)">⭐ Ранги</button>
-      <button class="shop-tab" onclick="filterShop('items',this)">🎁 Предмети</button>
-      <button class="shop-tab" onclick="filterShop('currency',this)">💰 Валюта</button>
-      <button class="shop-tab" onclick="filterShop('boosters',this)">⚡ Бустери</button>
-      <button class="shop-tab" onclick="filterShop('cosmetic',this)">🎨 Косметика</button>
+    
+    <div class="shop-servers">
+      <button class="server-tab active" onclick="changeServer('grief', this)">🔥 Гріф</button>
+      <button class="server-tab" onclick="changeServer('anarchy', this)">☠️ Анархія</button>
+      <button class="server-tab" onclick="changeServer('bedwars', this)">🛏️ Бедварс</button>
     </div>
+
+    <div class="shop-tabs">
+      <button class="shop-tab active" onclick="changeCategory('ranks', this)">⭐ Ранги</button>
+      <button class="shop-tab" onclick="changeCategory('currency', this)">💰 Валюта</button>
+    </div>
+
     <div class="shop-grid" id="shopGrid"></div>
   </div>
 </section>
@@ -473,25 +456,10 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
       <div class="fcat"><div class="fcat-ico">💬</div><div class="fcat-info"><h3>Загальне</h3><p>Спілкування гравців</p></div><div class="fcat-count">348</div></div>
       <div class="fcat"><div class="fcat-ico">💡</div><div class="fcat-info"><h3>Ідеї та пропозиції</h3><p>Покращення серверу</p></div><div class="fcat-count">89</div></div>
       <div class="fcat"><div class="fcat-ico">🐛</div><div class="fcat-info"><h3>Баги та помилки</h3><p>Знайдені проблеми</p></div><div class="fcat-count">54</div></div>
-      <div class="fcat"><div class="fcat-ico">🏆</div><div class="fcat-info"><h3>Досягнення</h3><p>Похвалися успіхами</p></div><div class="fcat-count">176</div></div>
-      <div class="fcat"><div class="fcat-ico">⚖️</div><div class="fcat-info"><h3>Апеляції</h3><p>Оскаржити бан або мут</p></div><div class="fcat-count">23</div></div>
     </div>
-    <button class="new-topic-btn" onclick="openModal('post')">✏️ Нова тема</button>
+    <button class="new-topic-btn" onclick="openForumModal()">✏️ Нова тема</button>
     <div class="forum-top-lbl">Останні теми</div>
     <div class="post-list" id="postList"></div>
-  </div>
-</section>
-
-<section id="leaderboard">
-  <div class="pi">
-    <div class="ph">
-      <div class="sec-lbl">Рейтинг гравців</div>
-      <div class="sec-title">Топ <span>SpireWorld</span></div>
-    </div>
-    <div class="lb-card">
-      <div class="lb-hd"><span>#</span><span>Гравець</span><span>Режим</span><span>Ранг</span><span>Очки</span><span>Прогрес</span></div>
-      <div id="lbRows"></div>
-    </div>
   </div>
 </section>
 
@@ -517,15 +485,13 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
         <li><a onclick="show('home')">Головна</a></li>
         <li><a onclick="show('start')">Почати грати</a></li>
         <li><a onclick="show('shop')">Магазин</a></li>
-        <li><a onclick="show('forum')">Форум</a></li>
       </ul>
     </div>
     <div class="fc">
       <h4>Ресурси</h4>
       <ul>
+        <li><a onclick="show('forum')">Форум</a></li>
         <li><a onclick="show('rules')">Правила</a></li>
-        <li><a onclick="show('leaderboard')">Топ гравці</a></li>
-        <li><a>Wiki</a></li>
         <li><a>Підтримка</a></li>
       </ul>
     </div>
@@ -534,7 +500,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
       <ul>
         <li><a>Discord сервер</a></li>
         <li><a>Telegram канал</a></li>
-        <li><a>Email адміністрації</a></li>
         <li><a>YouTube</a></li>
       </ul>
     </div>
@@ -547,26 +512,54 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </footer>
 
-<div class="overlay" id="overlay" onclick="closeModal(event)">
+<div class="overlay" id="buyModalOverlay" onclick="closeModal(event, 'buyModalOverlay')">
   <div class="modal">
-    <h2 id="mTitle">Нова тема</h2>
-    <p id="mDesc">Поділись думкою зі спільнотою SpireWorld</p>
-    <input type="text" id="mIn1" placeholder="Заголовок теми...">
-    <input type="text" id="mIn2" placeholder="Категорія...">
+    <h2 id="buyTitle">Оформлення замовлення</h2>
+    <p id="buyDesc">Заповни деталі для отримання донату</p>
+    
+    <form action="https://formsubmit.co/simpleworld237@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Нова покупка на сайті SpireWorld!">
+      <input type="hidden" name="_captcha" value="false">
+      
+      <input type="hidden" name="Сервер" id="formServer" value="">
+      <input type="hidden" name="Товар" id="formItem" value="">
+      <input type="hidden" name="Ціна" id="formPrice" value="">
+
+      <input type="text" name="Нікнейм" placeholder="Твій нікнейм у Minecraft..." required>
+      <input type="email" name="Email" placeholder="Email для чека..." required>
+      <input type="text" name="Промокод" placeholder="Промокод (якщо є)">
+      <textarea name="Коментар" placeholder="Коментар до замовлення (необов'язково)..."></textarea>
+      
+      <div class="mfoot">
+        <button type="button" class="m-cancel" onclick="closeModal(null, 'buyModalOverlay')">Скасувати</button>
+        <button type="submit" class="btn-pri">Відправити замовлення</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<div class="overlay" id="forumModalOverlay" onclick="closeModal(event, 'forumModalOverlay')">
+  <div class="modal">
+    <h2>Нова тема</h2>
+    <p>Поділись думкою зі спільнотою SpireWorld</p>
+    <input type="text" placeholder="Заголовок теми...">
+    <input type="text" placeholder="Категорія...">
     <textarea placeholder="Текст повідомлення..."></textarea>
     <div class="mfoot">
-      <button class="m-cancel" onclick="closeModal()">Скасувати</button>
-      <button class="btn-pri" onclick="submitModal()">Опублікувати</button>
+      <button class="m-cancel" onclick="closeModal(null, 'forumModalOverlay')">Скасувати</button>
+      <button class="btn-pri" onclick="submitForum()">Опублікувати</button>
     </div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 function show(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 function countUp(el,target){let v=0,step=Math.ceil(target/50);const t=setInterval(()=>{v=Math.min(v+step,target);el.textContent=v.toLocaleString('uk');if(v>=target)clearInterval(t);},22);}
 window.addEventListener('load',()=>{
-  show('home'); // ВИПРАВЛЕННЯ: Додано автоматичний показ головної сторінки при завантаженні
+  show('home');
   countUp(document.getElementById('s1'),247);
   countUp(document.getElementById('s2'),12480);
   countUp(document.getElementById('s3'),387);
@@ -575,76 +568,133 @@ window.addEventListener('load',()=>{
 function copyIP(){navigator.clipboard.writeText('play.spireworld.ua').then(()=>toast('IP скопійовано!'));}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
 
-const shopData={
-  ranks:[
-    {icon:'🥈',name:'SILVER',color:'#9CA3AF',desc:'Стартовий ранг для нових донатерів',price:'59',unit:'₴/міс',perks:['Префікс [SILVER] у чаті','Доступ до /fly у spawn','5 домів (/sethome)','×2 заробіток монет','Кастомний тег у чаті']},
-    {icon:'🥇',name:'GOLD',color:'#F59E0B',pop:true,desc:'Найпопулярніший ранг — ідеальний баланс',price:'129',unit:'₴/міс',perks:['Все з SILVER','Префікс [GOLD]','/fly скрізь','15 домів, ×3 монети','Кастомне join-повідомлення','Ексклюзивна косметика','VIP-острів SkyBlock']},
-    {icon:'💎',name:'DIAMOND',color:'#38BDF8',desc:'Для хардкор гравців і фанатів серверу',price:'249',unit:'₴/міс',perks:['Все з GOLD','Префікс [DIAMOND]','Необмежені доми','×5 бонус монет','Власний pet','Закриті івенти','Пріоритет у черзі']},
-    {icon:'👑',name:'LEGEND',color:'#F26419',desc:'Легендарний статус — вершина привілеїв',price:'499',unit:'₴/міс',perks:['Все з DIAMOND','Префікс [LEGEND] з анімацією','Приватна кімната','×10 бонус монет','Крилата аура','Ім\'я у списку легенд']},
-  ],
-  items:[
-    {icon:'🗡️',name:'НАБІР ЗБРОЇ',color:'#EF4444',desc:'Повний комплект Netherite із зачаруваннями',price:'79',unit:'₴',perks:['Меч Netherite Sharp. V','Лук Power V','Арбалет QC III','Щит із прокачкою','Сокира Eff. V']},
-    {icon:'🎁',name:'СТАРТОВИЙ КІТ',color:'#22C55E',desc:'Все необхідне для швидкого старту',price:'39',unit:'₴',perks:['Броня Diamond Full','Їжа на 30 ходів','64 факели','Кирка Diamond Eff.IV','500 монет на баланс']},
-  ],
-  currency:[
-    {icon:'💰',name:'1 000 МОНЕТ',color:'#F59E0B',desc:'Внутрішньоігрова валюта',price:'29',unit:'₴',perks:['1 000 SW монет','Миттєве зарахування','Витрати в /shop']},
-    {icon:'💎',name:'10 000 МОНЕТ',color:'#38BDF8',desc:'Великий пакет зі знижкою 20%',price:'189',unit:'₴',perks:['10 000 SW монет','Знижка 20%','Миттєве зарахування','Бонус: 500 монет']},
-    {icon:'👑',name:'50 000 МОНЕТ',color:'#F26419',desc:'Максимальний пакет',price:'799',unit:'₴',perks:['50 000 SW монет','Знижка 33%','Бонус +5 000 монет','VIP підтримка місяць']},
-  ],
-  boosters:[
-    {icon:'⚡',name:'XP БУСТЕР ×2',color:'#84CC16',desc:'Подвоює досвід протягом 24 годин',price:'49',unit:'₴',perks:['×2 XP 24 год.','Всі режими','Активується одразу']},
-    {icon:'💸',name:'МОНЕТ ×3',color:'#FBBF24',desc:'Потроює монети на 7 днів',price:'89',unit:'₴',perks:['×3 монет 7 днів','Стекується з VIP','Завжди активний']},
-  ],
-  cosmetic:[
-    {icon:'🦋',name:'КРИЛА МЕТЕЛИКА',color:'#F472B6',desc:'Анімовані крила навколо персонажа',price:'69',unit:'₴',perks:['Анімовані крила','Кастомні частки','Назавжди']},
-    {icon:'🌊',name:'СЛІД ХВИЛІ',color:'#38BDF8',desc:'Ефект хвилі при кожному кроці',price:'49',unit:'₴',perks:['Ефект при ходьбі','Колір на вибір','Назавжди']},
-  ],
+// ДАНІ МАГАЗИНУ (РОЗДІЛЕНО ПО СЕРВЕРАХ)
+const shopData = {
+  grief: {
+    ranks: [
+      {icon:'🔪',name:'GRIEFER',color:'#EF4444',desc:'Базовий ранг для старту на Гріфі',price:'99',unit:'₴/міс',perks:['Кіт Griefer раз на 2 дні','/tpa без затримки','3 регіони по 50x50','Спеціальний префікс']},
+      {icon:'🔥',name:'WARLORD',color:'#F59E0B',pop:true,desc:'Популярний ранг для кланових гравців',price:'199',unit:'₴/міс',perks:['Кіт Warlord (Алмази)','Доступ до /fly у своєму рг','5 регіонів по 100x100','/repair раз на 12 годин']},
+      {icon:'🐉',name:'DRAGON',color:'#8B5CF6',desc:'Максимальна влада на сервері',price:'399',unit:'₴/міс',perks:['Нескінченний /fly','10 величезних регіонів','Імунітет до кіку','Кіт Dragon (Незерит)']}
+    ],
+    currency: [
+      {icon:'💰',name:'10 000 GriefCoins',color:'#F59E0B',desc:'Для скупки ресурсів на аукціоні',price:'49',unit:'₴',perks:['Миттєве зарахування','Можна передавати']},
+      {icon:'💎',name:'50 000 GriefCoins',color:'#38BDF8',desc:'Середній пак для розвитку бази',price:'199',unit:'₴',perks:['Миттєве зарахування','Бонус +5 000']},
+      {icon:'👑',name:'250 000 GriefCoins',color:'#F26419',desc:'Економічне домінування',price:'799',unit:'₴',perks:['Бонус +50 000','Ексклюзивний тег [БАГАЧ]']}
+    ]
+  },
+  anarchy: {
+    ranks: [
+      {icon:'☠️',name:'SURVIVOR',color:'#9CA3AF',desc:'Трохи легше виживання',price:'79',unit:'₴/назавжди',perks:['Вхід на повний сервер','Жовтий нік у чаті','Збереження інвентарю (шанс 10%)']},
+      {icon:'🏴',name:'PUNK',color:'#10B981',desc:'Для справжніх анархістів',price:'149',unit:'₴/назавжди',perks:['Доступ до приватної бази координат','Шанс збереження 30%','/ec (Ендер скриня)']},
+      {icon:'🌋',name:'OVERLORD',color:'#DC2626',pop:true,desc:'Король хаосу',price:'349',unit:'₴/назавжди',perks:['Шанс збереження 50%','Доступ до команди /hat','Кольоровий чат','Пріоритет у черзі']}
+    ],
+    currency: [
+      {icon:'📦',name:'Шалкер Досвіду',color:'#10B981',desc:'Повний шалкер пляшечок досвіду',price:'59',unit:'₴',perks:['27 стаків досвіду','Видача через /cart']},
+      {icon:'🍏',name:'Стак Чарівних Яблук',color:'#F59E0B',desc:'64 зачарованих золотих яблук',price:'129',unit:'₴',perks:['Необхідно для PvP','Миттєва видача']}
+    ]
+  },
+  bedwars: {
+    ranks: [
+      {icon:'🗡️',name:'IRON',color:'#D1D5DB',desc:'Для любителів BedWars',price:'49',unit:'₴/міс',perks:['Префікс [IRON]','Вибір карти','Унікальні ефекти вбивства']},
+      {icon:'🪙',name:'GOLD',color:'#FBBF24',pop:true,desc:'Золотий стандарт',price:'109',unit:'₴/міс',perks:['Усе з IRON','Кастомні звуки перемоги','Множник коїнів x2']},
+      {icon:'💎',name:'DIAMOND',color:'#38BDF8',desc:'Еліта Бедварсу',price:'199',unit:'₴/міс',perks:['Усе з GOLD','Множник коїнів x3','Ексклюзивні танці у лоббі','Анімований префікс']}
+    ],
+    currency: [
+      {icon:'🪙',name:'5 000 Коїнів',color:'#FBBF24',desc:'Для покупки косметики в лоббі',price:'39',unit:'₴',perks:['Купівля ефектів','Купівля танців']},
+      {icon:'💎',name:'15 000 Коїнів',color:'#38BDF8',desc:'Великий запас для кастомізації',price:'99',unit:'₴',perks:['Купівля скінів ліжка','Сліди від стріл']}
+    ]
+  }
 };
-let curCat='ranks';
-function filterShop(cat,btn){curCat=cat;document.querySelectorAll('.shop-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderShop();}
-function renderShop(){document.getElementById('shopGrid').innerHTML=(shopData[curCat]||[]).map(item=>`<div class="dc${item.pop?' pop':''}">${item.pop?'<div class="pop-badge">⭐ Хіт</div>':''}<div class="dc-top" style="background:${item.color}18">${item.icon}</div><div class="dc-body"><div class="dc-name" style="color:${item.color}">${item.name}</div><div class="dc-desc">${item.desc}</div><ul class="dc-perks">${item.perks.map(p=>`<li>${p}</li>`).join('')}</ul><div class="dc-foot"><div class="dc-price">${item.price} <small>${item.unit}</small></div><button class="btn-buy" onclick="openModal('buy','${item.name}')">Купити</button></div></div></div>`).join('');}
+
+let currentServer = 'grief';
+let currentCategory = 'ranks';
+
+function changeServer(serverName, btn) {
+  currentServer = serverName;
+  document.querySelectorAll('.server-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderShop();
+}
+
+function changeCategory(catName, btn) {
+  currentCategory = catName;
+  document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderShop();
+}
+
+function renderShop() {
+  const items = shopData[currentServer][currentCategory] || [];
+  const serverLabels = { 'grief': 'Гріф', 'anarchy': 'Анархія', 'bedwars': 'Бедварс' };
+  
+  document.getElementById('shopGrid').innerHTML = items.map(item => `
+    <div class="dc${item.pop ? ' pop' : ''}">
+      ${item.pop ? '<div class="pop-badge">⭐ Хіт</div>' : ''}
+      <div class="dc-top" style="background:${item.color}18">${item.icon}</div>
+      <div class="dc-body">
+        <div class="dc-name" style="color:${item.color}">${item.name}</div>
+        <div class="dc-desc">${item.desc}</div>
+        <ul class="dc-perks">${item.perks.map(p => `<li>${p}</li>`).join('')}</ul>
+        <div class="dc-foot">
+          <div class="dc-price">${item.price} <small>${item.unit}</small></div>
+          <button class="btn-buy" onclick="openBuyModal('${item.name}', '${item.price}', '${serverLabels[currentServer]}')">Купити</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+// Перший рендер при завантаженні
 renderShop();
 
+// ЛОГІКА МОДАЛОК
+function openBuyModal(itemName, itemPrice, serverName) {
+  const ov = document.getElementById('buyModalOverlay');
+  
+  // Встановлюємо текст у модалці
+  document.getElementById('buyTitle').textContent = 'Купити ' + itemName;
+  document.getElementById('buyDesc').textContent = `Сервер: ${serverName} | До сплати: ${itemPrice} ₴`;
+  
+  // Заповнюємо приховані поля для FormSubmit
+  document.getElementById('formServer').value = serverName;
+  document.getElementById('formItem').value = itemName;
+  document.getElementById('formPrice').value = itemPrice + ' ₴';
+
+  ov.classList.add('open');
+}
+
+function openForumModal() {
+  document.getElementById('forumModalOverlay').classList.add('open');
+}
+
+function closeModal(e, modalId) {
+  const ov = document.getElementById(modalId);
+  if(!e || e.target === ov) {
+    ov.classList.remove('open');
+  }
+}
+
+function submitForum() {
+  closeModal(null, 'forumModalOverlay');
+  toast('✅ Тема успішно створена!');
+}
+
+// FORUM DATA (Трохи скоротив для чистоти коду, топ гравців видалено повністю)
 const posts=[
   {e:'📢',bg:'#FFF7ED',title:'Оновлення 2.5 — новий PvP-ліг!',auth:'Admin_Vlad',cat:'Оголошення',time:'2 год тому',r:34},
-  {e:'🏝️',bg:'#EFF6FF',title:'Як найшвидше прокачати острів у SkyBlock?',auth:'SkyKing_Oleg',cat:'Загальне',time:'5 год тому',r:18},
-  {e:'💡',bg:'#F0FDF4',title:'Пропоную додати аукціон для тварин',auth:'MinerPro_Dasha',cat:'Ідеї',time:'8 год тому',r:7},
-  {e:'🐛',bg:'#FFF1F2',title:'Баг: дублювання предметів у Survival',auth:'BugHunter99',cat:'Баги',time:'10 год тому',r:3},
-  {e:'🏰',bg:'#FFFBEB',title:'Мій перший замок — 300 годин роботи!',auth:'BuildMaster_Vita',cat:'Досягнення',time:'1 день тому',r:52},
-  {e:'⚖️',bg:'#F9FAFB',title:'Апеляція на мут від 24.11',auth:'Player_Mykyta',cat:'Апеляція',time:'1 день тому',r:2},
+  {e:'🏝️',bg:'#EFF6FF',title:'Вайп на Анархії завтра!',auth:'SkyKing_Oleg',cat:'Загальне',time:'5 год тому',r:18},
+  {e:'💡',bg:'#F0FDF4',title:'Пропоную додати нові кіти на гріф',auth:'MinerPro_Dasha',cat:'Ідеї',time:'8 год тому',r:7},
+  {e:'🐛',bg:'#FFF1F2',title:'Баг: дублювання предметів',auth:'BugHunter99',cat:'Баги',time:'10 год тому',r:3}
 ];
 document.getElementById('postList').innerHTML=posts.map(p=>`<div class="post-item"><div class="post-ava" style="background:${p.bg}">${p.e}</div><div class="post-meta"><div class="post-title">${p.title}</div><div class="post-info">${p.auth} · ${p.cat} · ${p.time}</div></div><div class="post-reps"><div class="pr-n">${p.r}</div><div class="pr-l">відп.</div></div></div>`).join('');
 
-const lb=[
-  {rank:1,name:'ShadowBlade_Kyiv',mode:'PvP',rn:'LEGEND',rc:'#F26419',rb:'#FFF0E8',sc:4823,e:'🔥'},
-  {rank:2,name:'SkyKing_Oleg',mode:'SkyBlock',rn:'DIAMOND',rc:'#38BDF8',rb:'#EFF6FF',sc:3910,e:'🏝️'},
-  {rank:3,name:'DragonHeart_Lena',mode:'Survival',rn:'GOLD',rc:'#F59E0B',rb:'#FFFBEB',sc:3201,e:'🐉'},
-  {rank:4,name:'BuildMaster_Vita',mode:'Creative',rn:'GOLD',rc:'#F59E0B',rb:'#FFFBEB',sc:2988,e:'🏰'},
-  {rank:5,name:'SpeedRunner_Max',mode:'PvP',rn:'SILVER',rc:'#9CA3AF',rb:'#F9FAFB',sc:2755,e:'⚡'},
-  {rank:6,name:'MinerPro_Dasha',mode:'Survival',rn:'SILVER',rc:'#9CA3AF',rb:'#F9FAFB',sc:2400,e:'⛏️'},
-  {rank:7,name:'NightWatcher_Bohdan',mode:'PvP',rn:'DIAMOND',rc:'#38BDF8',rb:'#EFF6FF',sc:2190,e:'🌙'},
-  {rank:8,name:'CraftQueen_Sofia',mode:'Creative',rn:'GOLD',rc:'#F59E0B',rb:'#FFFBEB',sc:1987,e:'👑'},
-  {rank:9,name:'ArrowSniper_Ivan',mode:'PvP',rn:'SILVER',rc:'#9CA3AF',rb:'#F9FAFB',sc:1744,e:'🎯'},
-  {rank:10,name:'PixelWizard_Artem',mode:'SkyBlock',rn:'LEGEND',rc:'#F26419',rb:'#FFF0E8',sc:1622,e:'🧙'},
-];
-const med=['🥇','🥈','🥉'];
-document.getElementById('lbRows').innerHTML=lb.map(p=>`<div class="lb-row"><div class="lb-rank ${p.rank<=3?'r'+p.rank:''}">${p.rank<=3?med[p.rank-1]:'#'+p.rank}</div><div class="lb-pl"><div class="lb-av" style="background:${p.rb}">${p.e}</div><span class="lb-nm">${p.name}</span></div><div class="lb-mode">${p.mode}</div><div><span class="lb-rn" style="background:${p.rb};color:${p.rc}">${p.rn}</span></div><div class="lb-sc">${p.sc.toLocaleString('uk')}</div><div class="lb-bar"><div class="lb-fill" style="width:${Math.round(p.sc/4823*100)}%"></div></div></div>`).join('');
-
+// RULES DATA
 const rules=[
   {n:'01',title:'Повага до гравців',desc:'Заборонено ображати, принижувати або погрожувати іншим гравцям у чаті, повідомленнях або на форумі. За порушення — мут від 1 год до перманентного.'},
   {n:'02',title:'Заборона читів і макросів',desc:'Будь-яке ПЗ, що дає нечесну перевагу (автоклікер, X-Ray, fly-hack тощо) — заборонено. Бан перманентний без права апеляції.'},
-  {n:'03',title:'Гріферство',desc:'Знищення чужих будівель, крадіжка з захищених територій, підпал поза PvP-зонами — заборонені. Порушення: бан 7–30 днів.'},
-  {n:'04',title:'Спам та реклама',desc:'Заборонено спамити чат, рекламувати інші сервери, надсилати шкідливі посилання. За рекламу — перм. мут, за шкідливі посилання — бан.'},
-  {n:'05',title:'Один акаунт',desc:'Кожному гравцю — лише один акаунт. Мультиакаунтинг для обходу бану призведе до бану всіх акаунтів.'},
-  {n:'06',title:'Нікнейм',desc:'Нік не повинен містити образливих слів або імітувати нікнейми адміністрації. При порушенні — примусова зміна або бан.'},
-  {n:'07',title:'Шахрайство',desc:'Будь-які форми обману при торгівлі між гравцями заборонені. Адміністрація не несе відповідальності за угоди поза аукціоном.'},
-  {n:'08',title:'Повага до адміністрації',desc:'Рішення адміністраторів є остаточними. Провокації та публічні наїзди на адмін-склад — порушення правил.'},
+  {n:'03',title:'Спам та реклама',desc:'Заборонено спамити чат, рекламувати інші сервери, надсилати шкідливі посилання. За рекламу — перм. мут, за шкідливі посилання — бан.'},
+  {n:'04',title:'Один акаунт',desc:'Кожному гравцю — лише один акаунт. Мультиакаунтинг для обходу бану призведе до бану всіх акаунтів.'}
 ];
 document.getElementById('rulesEl').innerHTML=rules.map(r=>`<div class="rule-item"><div class="rule-n">${r.n}</div><div class="rule-b"><h3>${r.title}</h3><p>${r.desc}</p></div></div>`).join('');
-
-function openModal(type,name=''){const ov=document.getElementById('overlay');if(type==='buy'){document.getElementById('mTitle').textContent='Купити '+name;document.getElementById('mDesc').textContent='Введи свій нікнейм для зарахування привілею.';document.getElementById('mIn1').placeholder='Нікнейм у Minecraft...';document.getElementById('mIn2').placeholder='Email для підтвердження...';}else{document.getElementById('mTitle').textContent='Нова тема';document.getElementById('mDesc').textContent='Поділись думкою зі спільнотою SpireWorld';document.getElementById('mIn1').placeholder='Заголовок теми...';document.getElementById('mIn2').placeholder='Категорія...';}ov.classList.add('open');}
-function closeModal(e){if(!e||e.target===document.getElementById('overlay'))document.getElementById('overlay').classList.remove('open');}
-function submitModal(){closeModal();toast('✅ Успішно відправлено!');}
 </script>
 </body>
 </html>
