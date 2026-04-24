@@ -1,1 +1,650 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpireWorld — Minecraft Server</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #F26419;
+  --orange-light: #FF8A4C;
+  --orange-pale: #FFF0E8;
+  --orange-pale2: #FFD9C0;
+  --white: #FFFFFF;
+  --bg: #F8F5F1;
+  --bg2: #F2EDE6;
+  --text: #1C1410;
+  --text2: #6B5C50;
+  --text3: #A8917F;
+  --border: #E6DDD4;
+  --border2: #D4C4B5;
+  --shadow: 0 2px 16px rgba(242,100,25,0.08);
+  --shadow-lg: 0 8px 40px rgba(242,100,25,0.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:62px;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-size:19px;font-weight:800;
+  color:var(--text);cursor:pointer;text-decoration:none;
+  display:flex;align-items:center;gap:9px;
+}
+.nav-logo span{color:var(--orange);}
+.nl-dot{width:8px;height:8px;background:#22C55E;border-radius:50%;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
+.nav-links a{
+  color:var(--text2);text-decoration:none;font-size:14px;font-weight:700;
+  padding:7px 13px;border-radius:8px;cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.nav-links a:hover{background:var(--orange-pale);color:var(--orange);}
+.nav-links .cta{
+  background:var(--orange);color:#fff!important;
+  padding:8px 18px;border-radius:8px;margin-left:6px;
+  transition:box-shadow .2s,transform .15s!important;
+}
+.nav-links .cta:hover{box-shadow:0 4px 18px rgba(242,100,25,.35);transform:translateY(-1px);}
+
+/* SECTIONS */
+section{display:none;min-height:100vh;padding-top:62px;}
+section.active{display:block;}
+
+/* HOME */
+#home{background:var(--white);}
+.hero-wrap{max-width:920px;margin:0 auto;padding:68px 40px 0;text-align:center;}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--orange-pale);border:1px solid var(--orange-pale2);
+  border-radius:100px;padding:5px 15px;
+  font-size:11px;font-weight:800;color:var(--orange);
+  letter-spacing:.8px;text-transform:uppercase;margin-bottom:28px;
+  animation:fadeUp .45s ease both;
+}
+.pill-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;}
+h1.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(52px,7.5vw,100px);
+  font-weight:800;line-height:1;letter-spacing:-3px;
+  color:var(--text);margin-bottom:10px;
+  animation:fadeUp .45s ease .06s both;
+}
+h1.hero-title .o{color:var(--orange);}
+.hero-sub{
+  font-size:14px;font-weight:700;color:var(--text3);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:38px;
+  animation:fadeUp .45s ease .1s both;
+}
+.ip-bar{
+  display:inline-flex;align-items:center;
+  background:var(--bg);border:1.5px solid var(--border2);border-radius:12px;
+  overflow:hidden;margin-bottom:34px;
+  animation:fadeUp .45s ease .14s both;
+}
+.ip-text{
+  padding:12px 22px;
+  font-family:'Syne',sans-serif;font-size:16px;font-weight:700;
+  color:var(--text);border-right:1.5px solid var(--border2);
+}
+.ip-btn{
+  padding:12px 18px;background:transparent;border:none;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;
+  color:var(--orange);cursor:pointer;transition:background .15s;
+}
+.ip-btn:hover{background:var(--orange-pale);}
+.hero-btns{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:60px;
+  animation:fadeUp .45s ease .18s both;
+}
+.btn-pri{
+  background:var(--orange);color:#fff;border:none;
+  padding:12px 28px;border-radius:9px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  cursor:pointer;transition:box-shadow .2s,transform .15s;
+}
+.btn-pri:hover{box-shadow:0 6px 22px rgba(242,100,25,.35);transform:translateY(-2px);}
+.btn-sec{
+  background:transparent;color:var(--text);
+  border:1.5px solid var(--border2);padding:12px 28px;border-radius:9px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  cursor:pointer;transition:border-color .15s,color .15s,background .15s;
+}
+.btn-sec:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-pale);}
+.stats-band{
+  background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:30px 40px;display:flex;justify-content:center;gap:70px;flex-wrap:wrap;
+}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--orange);line-height:1;}
+.stat-lbl{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+.features-sec{background:var(--white);padding:64px 40px;max-width:1100px;margin:0 auto;}
+.sec-lbl{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(24px,3vw,40px);font-weight:800;color:var(--text);letter-spacing:-1px;margin-bottom:36px;}
+.sec-title span{color:var(--orange);}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+.feat-card{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:14px;
+  padding:22px;transition:border-color .2s,box-shadow .2s;
+}
+.feat-card:hover{border-color:var(--orange-pale2);box-shadow:var(--shadow);}
+.feat-icon{font-size:28px;margin-bottom:10px;}
+.feat-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--text);margin-bottom:5px;}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* PAGE INNER */
+.pi{max-width:1100px;margin:0 auto;padding:60px 40px 70px;}
+.ph{margin-bottom:44px;}
+
+/* START */
+#start{background:var(--white);}
+.start-grid{display:grid;grid-template-columns:1fr 360px;gap:56px;align-items:start;}
+.steps{display:flex;flex-direction:column;}
+.step{display:flex;gap:16px;padding:22px 0;border-bottom:1px solid var(--border);}
+.step:last-child{border-bottom:none;}
+.step-n{
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--orange);
+  background:var(--orange-pale);width:30px;height:30px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
+}
+.step-b h3{font-size:15px;font-weight:800;color:var(--text);margin-bottom:5px;}
+.step-b p{font-size:13px;color:var(--text2);line-height:1.65;}
+.step-b code{
+  display:inline-block;margin-top:8px;
+  background:var(--orange-pale);color:var(--orange);
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  padding:6px 14px;border-radius:8px;border:1px solid var(--orange-pale2);
+}
+.srv-panel{background:var(--bg);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;position:sticky;top:78px;}
+.srv-hd{background:var(--orange);color:#fff;padding:18px 22px;}
+.srv-hd h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;margin-bottom:2px;}
+.srv-hd p{font-size:12px;opacity:.8;}
+.ob{margin:14px 18px 0;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:9px;padding:11px 14px;display:flex;align-items:center;gap:9px;}
+.ob-dot{width:8px;height:8px;background:#22C55E;border-radius:50%;flex-shrink:0;}
+.ob-t{font-size:13px;font-weight:700;color:#15803D;}
+.ob-n{margin-left:auto;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#22C55E;}
+.srv-rows{padding:6px 0;}
+.srv-row{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border);}
+.srv-row:last-child{border-bottom:none;}
+.sr-l{font-size:12px;font-weight:700;color:var(--text3);}
+.sr-v{font-size:13px;font-weight:800;color:var(--text);}
+.sr-v.o{color:var(--orange);font-family:'Syne';font-size:13px;}
+
+/* SHOP */
+#shop{background:var(--bg);}
+.shop-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:32px;}
+.shop-tab{
+  background:var(--white);border:1.5px solid var(--border);
+  color:var(--text2);padding:7px 16px;border-radius:100px;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;
+  cursor:pointer;transition:all .15s;
+}
+.shop-tab:hover,.shop-tab.active{background:var(--orange);border-color:var(--orange);color:#fff;}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+.dc{
+  background:var(--white);border:1.5px solid var(--border);border-radius:16px;
+  overflow:hidden;position:relative;transition:box-shadow .2s,transform .2s;
+}
+.dc:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);}
+.dc.pop{border-color:var(--orange);}
+.pop-badge{
+  position:absolute;top:11px;right:11px;
+  background:var(--orange);color:#fff;
+  font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  padding:3px 9px;border-radius:100px;
+}
+.dc-top{height:96px;display:flex;align-items:center;justify-content:center;font-size:50px;}
+.dc-body{padding:16px 18px 18px;}
+.dc-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:4px;}
+.dc-desc{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6;}
+.dc-perks{list-style:none;margin-bottom:16px;}
+.dc-perks li{font-size:12px;color:var(--text2);padding:3px 0;display:flex;align-items:flex-start;gap:6px;}
+.dc-perks li::before{content:'✓';color:var(--orange);font-weight:900;flex-shrink:0;margin-top:1px;}
+.dc-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
+.dc-price{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;color:var(--orange);}
+.dc-price small{font-size:12px;color:var(--text3);font-family:'Nunito';font-weight:700;}
+.btn-buy{
+  background:var(--orange);color:#fff;border:none;
+  padding:8px 16px;border-radius:8px;
+  font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;
+  cursor:pointer;transition:box-shadow .2s;
+}
+.btn-buy:hover{box-shadow:0 4px 14px rgba(242,100,25,.35);}
+
+/* FORUM */
+#forum{background:var(--bg);}
+.forum-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin-bottom:36px;}
+.fcat{
+  background:var(--white);border:1.5px solid var(--border);border-radius:12px;
+  padding:14px 18px;display:flex;align-items:center;gap:13px;
+  cursor:pointer;transition:border-color .15s,box-shadow .15s;
+}
+.fcat:hover{border-color:var(--orange-pale2);box-shadow:var(--shadow);}
+.fcat-ico{font-size:22px;}
+.fcat-info h3{font-size:14px;font-weight:800;color:var(--text);margin-bottom:1px;}
+.fcat-info p{font-size:11px;color:var(--text3);}
+.fcat-count{margin-left:auto;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--orange);}
+.new-topic-btn{
+  background:var(--orange);color:#fff;border:none;
+  padding:9px 20px;border-radius:9px;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;
+  cursor:pointer;transition:box-shadow .2s;
+  margin-bottom:18px;display:inline-flex;align-items:center;gap:6px;
+}
+.new-topic-btn:hover{box-shadow:0 4px 16px rgba(242,100,25,.35);}
+.forum-top-lbl{
+  font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--text);
+  margin-bottom:12px;display:flex;align-items:center;gap:10px;
+}
+.forum-top-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+.post-list{display:flex;flex-direction:column;gap:8px;}
+.post-item{
+  background:var(--white);border:1.5px solid var(--border);border-radius:12px;
+  padding:13px 16px;display:flex;align-items:center;gap:13px;
+  cursor:pointer;transition:border-color .15s;
+}
+.post-item:hover{border-color:var(--orange-pale2);}
+.post-ava{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.post-meta{flex:1;}
+.post-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:2px;}
+.post-info{font-size:12px;color:var(--text3);}
+.post-reps{text-align:right;}
+.pr-n{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--orange);}
+.pr-l{font-size:11px;color:var(--text3);}
+
+/* LEADERBOARD */
+#leaderboard{background:var(--white);}
+.lb-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;}
+.lb-hd{
+  display:grid;grid-template-columns:52px 1fr 100px 110px 120px 1fr;
+  background:var(--bg);border-bottom:1.5px solid var(--border);padding:10px 18px;
+}
+.lb-hd span{font-size:10px;font-weight:800;color:var(--text3);letter-spacing:1px;text-transform:uppercase;}
+.lb-row{
+  display:grid;grid-template-columns:52px 1fr 100px 110px 120px 1fr;
+  align-items:center;padding:13px 18px;border-bottom:1px solid var(--border);
+  transition:background .1s;
+}
+.lb-row:last-child{border-bottom:none;}
+.lb-row:hover{background:var(--bg);}
+.lb-rank{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;}
+.r1{color:#F59E0B;}.r2{color:#9CA3AF;}.r3{color:#CD7F32;}
+.lb-pl{display:flex;align-items:center;gap:9px;}
+.lb-av{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.lb-nm{font-size:14px;font-weight:800;color:var(--text);}
+.lb-mode{font-size:13px;color:var(--text2);font-weight:600;}
+.lb-rn{display:inline-block;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;}
+.lb-sc{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--orange);}
+.lb-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-right:8px;}
+.lb-fill{height:100%;background:var(--orange);border-radius:3px;}
+
+/* RULES */
+#rules{background:var(--bg);}
+.rules-inner{max-width:700px;}
+.rule-item{
+  background:var(--white);border:1.5px solid var(--border);border-radius:13px;
+  padding:20px 22px;margin-bottom:10px;display:flex;gap:16px;
+  transition:border-color .15s;
+}
+.rule-item:hover{border-color:var(--orange-pale2);}
+.rule-n{
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--orange);
+  background:var(--orange-pale);width:30px;height:30px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
+}
+.rule-b h3{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.rule-b p{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px;}
+.fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px;}
+.fb .fl{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:#fff;margin-bottom:9px;}
+.fb .fl span{color:var(--orange);}
+.fb p{font-size:13px;line-height:1.7;}
+.fc h4{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px;}
+.fc ul{list-style:none;}
+.fc li{margin-bottom:7px;}
+.fc a{font-size:13px;color:rgba(255,255,255,.5);cursor:pointer;text-decoration:none;transition:color .15s;}
+.fc a:hover{color:var(--orange);}
+.fbot{max-width:1100px;margin:0 auto;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;}
+.fbot p{font-size:12px;color:rgba(255,255,255,.22);}
+.socs{display:flex;gap:7px;}
+.soc{width:33px;height:33px;border:1px solid rgba(255,255,255,.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .15s;}
+.soc:hover{background:rgba(242,100,25,.15);border-color:var(--orange);}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(20,12,6,.5);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px);}
+.overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--white);border-radius:18px;padding:34px;max-width:420px;width:90%;border:1.5px solid var(--border);transform:scale(.96);transition:transform .2s;}
+.overlay.open .modal{transform:scale(1);}
+.modal h2{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--text);margin-bottom:5px;}
+.modal p{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.6;}
+.modal input,.modal textarea{width:100%;border:1.5px solid var(--border);border-radius:9px;padding:11px 13px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);background:var(--bg);outline:none;margin-bottom:9px;transition:border-color .15s;}
+.modal input:focus,.modal textarea:focus{border-color:var(--orange);}
+.modal textarea{height:86px;resize:none;}
+.mfoot{display:flex;gap:9px;margin-top:4px;}
+.m-cancel{background:var(--bg);border:1.5px solid var(--border);color:var(--text2);padding:10px 18px;border-radius:9px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;}
+
+/* TOAST */
+.toast{position:fixed;bottom:26px;right:26px;background:var(--text);color:#fff;padding:12px 20px;border-radius:9px;font-size:13px;font-weight:800;z-index:9999;transform:translateY(70px);opacity:0;transition:all .25s;box-shadow:0 6px 28px rgba(0,0,0,.2);}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .nav-links{display:none;}
+  section{padding-top:62px;}
+  .pi{padding:36px 18px 52px;}
+  .hero-wrap{padding:44px 18px 0;}
+  .stats-band{gap:28px;padding:26px 18px;}
+  .features-sec{padding:44px 18px;}
+  .start-grid{grid-template-columns:1fr;}
+  .fg{grid-template-columns:1fr 1fr;}
+  .lb-hd,.lb-row{grid-template-columns:44px 1fr 90px;}
+  .lb-hd span:nth-child(n+4),.lb-row>*:nth-child(n+4){display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" onclick="show('home')">
+    <div class="nl-dot"></div>
+    Spire<span>World</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="show('home')">Головна</a></li>
+    <li><a onclick="show('start')">Почати грати</a></li>
+    <li><a onclick="show('shop')">Магазин</a></li>
+    <li><a onclick="show('forum')">Форум</a></li>
+    <li><a onclick="show('leaderboard')">Топ гравці</a></li>
+    <li><a onclick="show('rules')">Правила</a></li>
+    <li><a class="cta" onclick="show('start')">▶ Грати</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-wrap">
+    <div class="hero-pill"><div class="pill-dot"></div>247 гравців зараз онлайн</div>
+    <h1 class="hero-title">SPIRE<span class="o">WORLD</span></h1>
+    <p class="hero-sub">Survival · SkyBlock · Creative · PvP</p>
+    <div class="ip-bar">
+      <div class="ip-text">play.spireworld.ua</div>
+      <button class="ip-btn" onclick="copyIP()">📋 Копіювати IP</button>
+    </div>
+    <div class="hero-btns">
+      <button class="btn-pri" onclick="show('start')">Почати грати</button>
+      <button class="btn-sec" onclick="show('shop')">Магазин донатів</button>
+    </div>
+  </div>
+  <div class="stats-band">
+    <div class="stat-item"><div class="stat-num" id="s1">0</div><div class="stat-lbl">Гравців онлайн</div></div>
+    <div class="stat-item"><div class="stat-num" id="s2">0</div><div class="stat-lbl">Зареєстровано</div></div>
+    <div class="stat-item"><div class="stat-num" id="s3">0</div><div class="stat-lbl">Днів роботи</div></div>
+    <div class="stat-item"><div class="stat-num" id="s4">0</div><div class="stat-lbl">Режимів гри</div></div>
+  </div>
+  <div class="features-sec">
+    <div class="sec-lbl">Можливості</div>
+    <div class="sec-title">Що чекає тебе на <span>SpireWorld</span></div>
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon">⚔️</div><div class="feat-name">PvP Арени</div><div class="feat-desc">Рейтингові бої, турніри та щотижневі нагороди для найкращих.</div></div>
+      <div class="feat-card"><div class="feat-icon">🏝️</div><div class="feat-name">SkyBlock</div><div class="feat-desc">Будуй острів з нуля і змагайся з іншими гравцями.</div></div>
+      <div class="feat-card"><div class="feat-icon">🏕️</div><div class="feat-name">Survival</div><div class="feat-desc">Класичне виживання з клановою системою та захопленням фортець.</div></div>
+      <div class="feat-card"><div class="feat-icon">🎨</div><div class="feat-name">Creative</div><div class="feat-desc">Безмежна творчість на plot-сервері з великими ділянками.</div></div>
+      <div class="feat-card"><div class="feat-icon">💰</div><div class="feat-name">Економіка</div><div class="feat-desc">Своя валюта, аукціон та магазини гравців на всіх режимах.</div></div>
+      <div class="feat-card"><div class="feat-icon">🛡️</div><div class="feat-name">Захист</div><div class="feat-desc">Анти-чит, захист земель та підтримка адміністрації 24/7.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- START -->
+<section id="start">
+  <div class="pi">
+    <div class="ph">
+      <div class="sec-lbl">Гайд для новачків</div>
+      <div class="sec-title">Почати <span>грати</span></div>
+    </div>
+    <div class="start-grid">
+      <div class="steps">
+        <div class="step"><div class="step-n">1</div><div class="step-b"><h3>Запусти Minecraft</h3><p>Відкрий офіційний лаунчер Minecraft. Підтримуємо версії 1.8–1.20.4. Рекомендована версія — <strong>1.20.4</strong>.</p></div></div>
+        <div class="step"><div class="step-n">2</div><div class="step-b"><h3>Перейди в Multiplayer</h3><p>На головному меню натисни «Multiplayer» → «Add Server» і вкажи IP у поле Server Address.</p></div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-b"><h3>Введи IP адресу</h3><p>Скопіюй та встав адресу нижче. Порт 25565 — стандартний, зазначати окремо не потрібно.</p><code>play.spireworld.ua</code></div></div>
+        <div class="step"><div class="step-n">4</div><div class="step-b"><h3>Реєстрація та гра!</h3><p>Після входу введи <strong>/register [пароль] [пароль]</strong>. Якщо є акаунт — <strong>/login [пароль]</strong>. Далі вибирай режим!</p></div></div>
+      </div>
+      <div>
+        <div class="ob"><div class="ob-dot"></div><div class="ob-t">Сервер онлайн</div><div class="ob-n">247/500</div></div>
+        <div style="height:12px"></div>
+        <div class="srv-panel">
+          <div class="srv-hd"><h3>Технічна інформація</h3><p>Актуальні дані сервера</p></div>
+          <div class="srv-rows">
+            <div class="srv-row"><span class="sr-l">IP Адреса</span><span class="sr-v o">play.spireworld.ua</span></div>
+            <div class="srv-row"><span class="sr-l">Порт</span><span class="sr-v">25565</span></div>
+            <div class="srv-row"><span class="sr-l">Версія</span><span class="sr-v">1.8 – 1.20.4</span></div>
+            <div class="srv-row"><span class="sr-l">Ядро</span><span class="sr-v">Paper + Velocity</span></div>
+            <div class="srv-row"><span class="sr-l">Режими</span><span class="sr-v">Survival, SkyBlock, PvP, Creative</span></div>
+            <div class="srv-row"><span class="sr-l">Макс. гравців</span><span class="sr-v">500</span></div>
+            <div class="srv-row"><span class="sr-l">Пінг (UA)</span><span class="sr-v">~12 ms</span></div>
+            <div class="srv-row"><span class="sr-l">Аптайм</span><span class="sr-v">99.9%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="pi">
+    <div class="ph">
+      <div class="sec-lbl">Підтримати сервер</div>
+      <div class="sec-title">Магазин <span>донатів</span></div>
+    </div>
+    <div class="shop-tabs">
+      <button class="shop-tab active" onclick="filterShop('ranks',this)">⭐ Ранги</button>
+      <button class="shop-tab" onclick="filterShop('items',this)">🎁 Предмети</button>
+      <button class="shop-tab" onclick="filterShop('currency',this)">💰 Валюта</button>
+      <button class="shop-tab" onclick="filterShop('boosters',this)">⚡ Бустери</button>
+      <button class="shop-tab" onclick="filterShop('cosmetic',this)">🎨 Косметика</button>
+    </div>
+    <div class="shop-grid" id="shopGrid"></div>
+  </div>
+</section>
+
+<!-- FORUM -->
+<section id="forum">
+  <div class="pi">
+    <div class="ph">
+      <div class="sec-lbl">Спільнота</div>
+      <div class="sec-title">Форум <span>SpireWorld</span></div>
+    </div>
+    <div class="forum-cats">
+      <div class="fcat"><div class="fcat-ico">📢</div><div class="fcat-info"><h3>Оголошення</h3><p>Офіційні новини</p></div><div class="fcat-count">12</div></div>
+      <div class="fcat"><div class="fcat-ico">💬</div><div class="fcat-info"><h3>Загальне</h3><p>Спілкування гравців</p></div><div class="fcat-count">348</div></div>
+      <div class="fcat"><div class="fcat-ico">💡</div><div class="fcat-info"><h3>Ідеї та пропозиції</h3><p>Покращення серверу</p></div><div class="fcat-count">89</div></div>
+      <div class="fcat"><div class="fcat-ico">🐛</div><div class="fcat-info"><h3>Баги та помилки</h3><p>Знайдені проблеми</p></div><div class="fcat-count">54</div></div>
+      <div class="fcat"><div class="fcat-ico">🏆</div><div class="fcat-info"><h3>Досягнення</h3><p>Похвалися успіхами</p></div><div class="fcat-count">176</div></div>
+      <div class="fcat"><div class="fcat-ico">⚖️</div><div class="fcat-info"><h3>Апеляції</h3><p>Оскаржити бан або мут</p></div><div class="fcat-count">23</div></div>
+    </div>
+    <button class="new-topic-btn" onclick="openModal('post')">✏️ Нова тема</button>
+    <div class="forum-top-lbl">Останні теми</div>
+    <div class="post-list" id="postList"></div>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="leaderboard">
+  <div class="pi">
+    <div class="ph">
+      <div class="sec-lbl">Рейтинг гравців</div>
+      <div class="sec-title">Топ <span>SpireWorld</span></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-hd"><span>#</span><span>Гравець</span><span>Режим</span><span>Ранг</span><span>Очки</span><span>Прогрес</span></div>
+      <div id="lbRows"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="pi">
+    <div class="ph">
+      <div class="sec-lbl">Правила серверу</div>
+      <div class="sec-title">Правила <span>SpireWorld</span></div>
+    </div>
+    <div class="rules-inner" id="rulesEl"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg">
+    <div class="fb">
+      <div class="fl">Spire<span>World</span></div>
+      <p>Найкращий україномовний Minecraft сервер. Приєднуйся і відкрий нові горизонти гри разом із тисячами гравців!</p>
+    </div>
+    <div class="fc">
+      <h4>Навігація</h4>
+      <ul>
+        <li><a onclick="show('home')">Головна</a></li>
+        <li><a onclick="show('start')">Почати грати</a></li>
+        <li><a onclick="show('shop')">Магазин</a></li>
+        <li><a onclick="show('forum')">Форум</a></li>
+      </ul>
+    </div>
+    <div class="fc">
+      <h4>Ресурси</h4>
+      <ul>
+        <li><a onclick="show('rules')">Правила</a></li>
+        <li><a onclick="show('leaderboard')">Топ гравці</a></li>
+        <li><a>Wiki</a></li>
+        <li><a>Підтримка</a></li>
+      </ul>
+    </div>
+    <div class="fc">
+      <h4>Контакти</h4>
+      <ul>
+        <li><a>Discord сервер</a></li>
+        <li><a>Telegram канал</a></li>
+        <li><a>Email адміністрації</a></li>
+        <li><a>YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>© 2024 SpireWorld. Не пов'язано з Mojang Studios.</p>
+    <div class="socs">
+      <div class="soc">💬</div><div class="soc">📱</div><div class="soc">▶️</div><div class="soc">🐦</div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <h2 id="mTitle">Нова тема</h2>
+    <p id="mDesc">Поділись думкою зі спільнотою SpireWorld</p>
+    <input type="text" id="mIn1" placeholder="Заголовок теми...">
+    <input type="text" id="mIn2" placeholder="Категорія...">
+    <textarea placeholder="Текст повідомлення..."></textarea>
+    <div class="mfoot">
+      <button class="m-cancel" onclick="closeModal()">Скасувати</button>
+      <button class="btn-pri" onclick="submitModal()">Опублікувати</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+function show(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function countUp(el,target){let v=0,step=Math.ceil(target/50);const t=setInterval(()=>{v=Math.min(v+step,target);el.textContent=v.toLocaleString('uk');if(v>=target)clearInterval(t);},22);}
+window.addEventListener('load',()=>{countUp(document.getElementById('s1'),247);countUp(document.getElementById('s2'),12480);countUp(document.getElementById('s3'),387);countUp(document.getElementById('s4'),6);});
+function copyIP(){navigator.clipboard.writeText('play.spireworld.ua').then(()=>toast('IP скопійовано!'));}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
+
+const shopData={
+  ranks:[
+    {icon:'🥈',name:'SILVER',color:'#9CA3AF',desc:'Стартовий ранг для нових донатерів',price:'59',unit:'₴/міс',perks:['Префікс [SILVER] у чаті','Доступ до /fly у spawn','5 домів (/sethome)','×2 заробіток монет','Кастомний тег у чаті']},
+    {icon:'🥇',name:'GOLD',color:'#F59E0B',pop:true,desc:'Найпопулярніший ранг — ідеальний баланс',price:'129',unit:'₴/міс',perks:['Все з SILVER','Префікс [GOLD]','/fly скрізь','15 домів, ×3 монети','Кастомне join-повідомлення','Ексклюзивна косметика','VIP-острів SkyBlock']},
+    {icon:'💎',name:'DIAMOND',color:'#38BDF8',desc:'Для хардкор гравців і фанатів серверу',price:'249',unit:'₴/міс',perks:['Все з GOLD','Префікс [DIAMOND]','Необмежені доми','×5 бонус монет','Власний pet','Закриті івенти','Пріоритет у черзі']},
+    {icon:'👑',name:'LEGEND',color:'#F26419',desc:'Легендарний статус — вершина привілеїв',price:'499',unit:'₴/міс',perks:['Все з DIAMOND','Префікс [LEGEND] з анімацією','Приватна кімната','×10 бонус монет','Крилата аура','Ім\'я у списку легенд']},
+  ],
+  items:[
+    {icon:'🗡️',name:'НАБІР ЗБРОЇ',color:'#EF4444',desc:'Повний комплект Netherite із зачаруваннями',price:'79',unit:'₴',perks:['Меч Netherite Sharp. V','Лук Power V','Арбалет QC III','Щит із прокачкою','Сокира Eff. V']},
+    {icon:'🎁',name:'СТАРТОВИЙ КІТ',color:'#22C55E',desc:'Все необхідне для швидкого старту',price:'39',unit:'₴',perks:['Броня Diamond Full','Їжа на 30 ходів','64 факели','Кирка Diamond Eff.IV','500 монет на баланс']},
+  ],
+  currency:[
+    {icon:'💰',name:'1 000 МОНЕТ',color:'#F59E0B',desc:'Внутрішньоігрова валюта',price:'29',unit:'₴',perks:['1 000 SW монет','Миттєве зарахування','Витрати в /shop']},
+    {icon:'💎',name:'10 000 МОНЕТ',color:'#38BDF8',desc:'Великий пакет зі знижкою 20%',price:'189',unit:'₴',perks:['10 000 SW монет','Знижка 20%','Миттєве зарахування','Бонус: 500 монет']},
+    {icon:'👑',name:'50 000 МОНЕТ',color:'#F26419',desc:'Максимальний пакет',price:'799',unit:'₴',perks:['50 000 SW монет','Знижка 33%','Бонус +5 000 монет','VIP підтримка місяць']},
+  ],
+  boosters:[
+    {icon:'⚡',name:'XP БУСТЕР ×2',color:'#84CC16',desc:'Подвоює досвід протягом 24 годин',price:'49',unit:'₴',perks:['×2 XP 24 год.','Всі режими','Активується одразу']},
+    {icon:'💸',name:'МОНЕТ ×3',color:'#FBBF24',desc:'Потроює монети на 7 днів',price:'89',unit:'₴',perks:['×3 монет 7 днів','Стекується з VIP','Завжди активний']},
+  ],
+  cosmetic:[
+    {icon:'🦋',name:'КРИЛА МЕТЕЛИКА',color:'#F472B6',desc:'Анімовані крила навколо персонажа',price:'69',unit:'₴',perks:['Анімовані крила','Кастомні частки','Назавжди']},
+    {icon:'🌊',name:'СЛІД ХВИЛІ',color:'#38BDF8',desc:'Ефект хвилі при кожному кроці',price:'49',unit:'₴',perks:['Ефект при ходьбі','Колір на вибір','Назавжди']},
+  ],
+};
+let curCat='ranks';
+function filterShop(cat,btn){curCat=cat;document.querySelectorAll('.shop-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderShop();}
+function renderShop(){document.getElementById('shopGrid').innerHTML=(shopData[curCat]||[]).map(item=>`<div class="dc${item.pop?' pop':''}">${item.pop?'<div class="pop-badge">⭐ Хіт</div>':''}<div class="dc-top" style="background:${item.color}18">${item.icon}</div><div class="dc-body"><div class="dc-name" style="color:${item.color}">${item.name}</div><div class="dc-desc">${item.desc}</div><ul class="dc-perks">${item.perks.map(p=>`<li>${p}</li>`).join('')}</ul><div class="dc-foot"><div class="dc-price">${item.price} <small>${item.unit}</small></div><button class="btn-buy" onclick="openModal('buy','${item.name}')">Купити</button></div></div></div>`).join('');}
+renderShop();
+
+const posts=[
+  {e:'📢',bg:'#FFF7ED',title:'Оновлення 2.5 — новий PvP-ліг!',auth:'Admin_Vlad',cat:'Оголошення',time:'2 год тому',r:34},
+  {e:'🏝️',bg:'#EFF6FF',title:'Як найшвидше прокачати острів у SkyBlock?',auth:'SkyKing_Oleg',cat:'Загальне',time:'5 год тому',r:18},
+  {e:'💡',bg:'#F0FDF4',title:'Пропоную додати аукціон для тварин',auth:'MinerPro_Dasha',cat:'Ідеї',time:'8 год тому',r:7},
+  {e:'🐛',bg:'#FFF1F2',title:'Баг: дублювання предметів у Survival',auth:'BugHunter99',cat:'Баги',time:'10 год тому',r:3},
+  {e:'🏰',bg:'#FFFBEB',title:'Мій перший замок — 300 годин роботи!',auth:'BuildMaster_Vita',cat:'Досягнення',time:'1 день тому',r:52},
+  {e:'⚖️',bg:'#F9FAFB',title:'Апеляція на мут від 24.11',auth:'Player_Mykyta',cat:'Апеляція',time:'1 день тому',r:2},
+];
+document.getElementById('postList').innerHTML=posts.map(p=>`<div class="post-item"><div class="post-ava" style="background:${p.bg}">${p.e}</div><div class="post-meta"><div class="post-title">${p.title}</div><div class="post-info">${p.auth} · ${p.cat} · ${p.time}</div></div><div class="post-reps"><div class="pr-n">${p.r}</div><div class="pr-l">відп.</div></div></div>`).join('');
+
+const lb=[
+  {rank:1,name:'ShadowBlade_Kyiv',mode:'PvP',rn:'LEGEND',rc:'#F26419',rb:'#FFF0E8',sc:4823,e:'🔥'},
+  {rank:2,name:'SkyKing_Oleg',mode:'SkyBlock',rn:'DIAMOND',rc:'#38BDF8',rb:'#EFF6FF',sc:3910,e:'🏝️'},
+  {rank:3,name:'DragonHeart_Lena',mode:'Survival',rn:'GOLD',rc:'#F59E0B',rb:'#FFFBEB',sc:3201,e:'🐉'},
+  {rank:4,name:'BuildMaster_Vita',mode:'Creative',rn:'GOLD',rc:'#F59E0B',rb:'#FFFBEB',sc:2988,e:'🏰'},
+  {rank:5,name:'SpeedRunner_Max',mode:'PvP',rn:'SILVER',rc:'#9CA3AF',rb:'#F9FAFB',sc:2755,e:'⚡'},
+  {rank:6,name:'MinerPro_Dasha',mode:'Survival',rn:'SILVER',rc:'#9CA3AF',rb:'#F9FAFB',sc:2400,e:'⛏️'},
+  {rank:7,name:'NightWatcher_Bohdan',mode:'PvP',rn:'DIAMOND',rc:'#38BDF8',rb:'#EFF6FF',sc:2190,e:'🌙'},
+  {rank:8,name:'CraftQueen_Sofia',mode:'Creative',rn:'GOLD',rc:'#F59E0B',rb:'#FFFBEB',sc:1987,e:'👑'},
+  {rank:9,name:'ArrowSniper_Ivan',mode:'PvP',rn:'SILVER',rc:'#9CA3AF',rb:'#F9FAFB',sc:1744,e:'🎯'},
+  {rank:10,name:'PixelWizard_Artem',mode:'SkyBlock',rn:'LEGEND',rc:'#F26419',rb:'#FFF0E8',sc:1622,e:'🧙'},
+];
+const med=['🥇','🥈','🥉'];
+document.getElementById('lbRows').innerHTML=lb.map(p=>`<div class="lb-row"><div class="lb-rank ${p.rank<=3?'r'+p.rank:''}">${p.rank<=3?med[p.rank-1]:'#'+p.rank}</div><div class="lb-pl"><div class="lb-av" style="background:${p.rb}">${p.e}</div><span class="lb-nm">${p.name}</span></div><div class="lb-mode">${p.mode}</div><div><span class="lb-rn" style="background:${p.rb};color:${p.rc}">${p.rn}</span></div><div class="lb-sc">${p.sc.toLocaleString('uk')}</div><div class="lb-bar"><div class="lb-fill" style="width:${Math.round(p.sc/4823*100)}%"></div></div></div>`).join('');
+
+const rules=[
+  {n:'01',title:'Повага до гравців',desc:'Заборонено ображати, принижувати або погрожувати іншим гравцям у чаті, повідомленнях або на форумі. За порушення — мут від 1 год до перманентного.'},
+  {n:'02',title:'Заборона читів і макросів',desc:'Будь-яке ПЗ, що дає нечесну перевагу (автоклікер, X-Ray, fly-hack тощо) — заборонено. Бан перманентний без права апеляції.'},
+  {n:'03',title:'Гріферство',desc:'Знищення чужих будівель, крадіжка з захищених територій, підпал поза PvP-зонами — заборонені. Порушення: бан 7–30 днів.'},
+  {n:'04',title:'Спам та реклама',desc:'Заборонено спамити чат, рекламувати інші сервери, надсилати шкідливі посилання. За рекламу — перм. мут, за шкідливі посилання — бан.'},
+  {n:'05',title:'Один акаунт',desc:'Кожному гравцю — лише один акаунт. Мультиакаунтинг для обходу бану призведе до бану всіх акаунтів.'},
+  {n:'06',title:'Нікнейм',desc:'Нік не повинен містити образливих слів або імітувати нікнейми адміністрації. При порушенні — примусова зміна або бан.'},
+  {n:'07',title:'Шахрайство',desc:'Будь-які форми обману при торгівлі між гравцями заборонені. Адміністрація не несе відповідальності за угоди поза аукціоном.'},
+  {n:'08',title:'Повага до адміністрації',desc:'Рішення адміністраторів є остаточними. Провокації та публічні наїзди на адмін-склад — порушення правил.'},
+];
+document.getElementById('rulesEl').innerHTML=rules.map(r=>`<div class="rule-item"><div class="rule-n">${r.n}</div><div class="rule-b"><h3>${r.title}</h3><p>${r.desc}</p></div></div>`).join('');
+
+function openModal(type,name=''){const ov=document.getElementById('overlay');if(type==='buy'){document.getElementById('mTitle').textContent='Купити '+name;document.getElementById('mDesc').textContent='Введи свій нікнейм для зарахування привілею.';document.getElementById('mIn1').placeholder='Нікнейм у Minecraft...';document.getElementById('mIn2').placeholder='Email для підтвердження...';}else{document.getElementById('mTitle').textContent='Нова тема';document.getElementById('mDesc').textContent='Поділись думкою зі спільнотою SpireWorld';document.getElementById('mIn1').placeholder='Заголовок теми...';document.getElementById('mIn2').placeholder='Категорія...';}ov.classList.add('open');}
+function closeModal(e){if(!e||e.target===document.getElementById('overlay'))document.getElementById('overlay').classList.remove('open');}
+function submitModal(){closeModal();toast('✅ Успішно відправлено!');}
+</script>
+</body>
+</html>
