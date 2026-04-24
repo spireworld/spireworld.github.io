@@ -182,6 +182,20 @@ h1.hero-title .o{color:var(--orange);}
 .sr-v{font-size:13px;font-weight:800;color:var(--text);}
 .sr-v.o{color:var(--orange);font-family:'Syne';font-size:13px;}
 
+/* CABINET */
+#cabinet {background:var(--white);}
+.cab-container {max-width: 600px; margin: 0 auto; background: var(--bg); border: 1.5px solid var(--border); border-radius: 16px; padding: 40px; text-align: center;}
+.cab-ava {width: 80px; height: 80px; background: var(--orange-pale); border: 2px solid var(--orange); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 34px; margin: 0 auto 15px;}
+.cab-name {font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 5px;}
+.cab-rank {display: inline-block; background: #F59E0B; color: #fff; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 25px;}
+.cab-stats {display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;}
+.c-stat {background: var(--white); border: 1.5px solid var(--border); padding: 15px; border-radius: 12px;}
+.c-stat-lbl {font-size: 11px; font-weight: 800; color: var(--text3); text-transform: uppercase; margin-bottom: 5px;}
+.c-stat-val {font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--orange);}
+
+.login-box input {width: 100%; border: 1.5px solid var(--border); border-radius: 9px; padding: 12px 15px; font-family: 'Nunito', sans-serif; font-size: 14px; margin-bottom: 15px; outline: none;}
+.login-box input:focus {border-color: var(--orange);}
+
 /* SHOP */
 #shop{background:var(--bg);}
 .shop-servers {display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap;}
@@ -351,7 +365,7 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
     <li><a onclick="show('shop')">Магазин</a></li>
     <li><a onclick="show('forum')">Форум</a></li>
     <li><a onclick="show('rules')">Правила</a></li>
-    <li><a class="cta" onclick="show('start')">▶ Грати</a></li>
+    <li><a class="cta" onclick="show('cabinet')">👤 Кабінет</a></li>
   </ul>
 </nav>
 
@@ -420,6 +434,44 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="cabinet">
+  <div class="pi">
+    <div class="ph">
+      <div class="sec-lbl">Твій профіль</div>
+      <div class="sec-title">Особистий <span>кабінет</span></div>
+    </div>
+    
+    <div class="cab-container" id="cabLoginBox">
+      <h2 style="font-family:'Syne'; font-size:22px; margin-bottom:10px;">Вхід до кабінету</h2>
+      <p style="font-size:13px; color:var(--text2); margin-bottom:20px;">Введи свій нікнейм, щоб переглянути статистику.</p>
+      <div class="login-box">
+        <input type="text" id="cabNickInput" placeholder="Твій нікнейм у Minecraft...">
+        <button class="btn-pri" style="width:100%;" onclick="loginCabinet()">Увійти</button>
+      </div>
+    </div>
+
+    <div class="cab-container" id="cabProfileBox" style="display:none;">
+      <div class="cab-ava" id="cabAvatar">😎</div>
+      <div class="cab-name" id="cabName">Нікнейм</div>
+      <div class="cab-rank">ГРАВЕЦЬ</div>
+      
+      <div class="cab-stats">
+        <div class="c-stat">
+          <div class="c-stat-lbl">Баланс монет</div>
+          <div class="c-stat-val">0</div>
+        </div>
+        <div class="c-stat">
+          <div class="c-stat-lbl">Награно годин</div>
+          <div class="c-stat-val" style="color:var(--text)">12</div>
+        </div>
+      </div>
+      
+      <button class="btn-sec" onclick="logoutCabinet()">Вийти з акаунта</button>
+    </div>
+
   </div>
 </section>
 
@@ -492,7 +544,7 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
       <ul>
         <li><a onclick="show('forum')">Форум</a></li>
         <li><a onclick="show('rules')">Правила</a></li>
-        <li><a>Підтримка</a></li>
+        <li><a onclick="show('cabinet')">Особистий кабінет</a></li>
       </ul>
     </div>
     <div class="fc">
@@ -517,22 +569,19 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
     <h2 id="buyTitle">Оформлення замовлення</h2>
     <p id="buyDesc">Заповни деталі для отримання донату</p>
     
-    <form action="https://formsubmit.co/simpleworld237@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Нова покупка на сайті SpireWorld!">
-      <input type="hidden" name="_captcha" value="false">
-      
+    <form onsubmit="submitBuyForm(event)">
       <input type="hidden" name="Сервер" id="formServer" value="">
       <input type="hidden" name="Товар" id="formItem" value="">
       <input type="hidden" name="Ціна" id="formPrice" value="">
 
-      <input type="text" name="Нікнейм" placeholder="Твій нікнейм у Minecraft..." required>
+      <input type="text" name="Нікнейм" id="buyNickInput" placeholder="Твій нікнейм у Minecraft..." required>
       <input type="email" name="Email" placeholder="Email для чека..." required>
       <input type="text" name="Промокод" placeholder="Промокод (якщо є)">
       <textarea name="Коментар" placeholder="Коментар до замовлення (необов'язково)..."></textarea>
       
       <div class="mfoot">
         <button type="button" class="m-cancel" onclick="closeModal(null, 'buyModalOverlay')">Скасувати</button>
-        <button type="submit" class="btn-pri">Відправити замовлення</button>
+        <button type="submit" class="btn-pri" id="submitBuyBtn">Відправити замовлення</button>
       </div>
     </form>
 
@@ -564,6 +613,7 @@ window.addEventListener('load',()=>{
   countUp(document.getElementById('s2'),12480);
   countUp(document.getElementById('s3'),387);
   countUp(document.getElementById('s4'),6);
+  checkCabinetStatus(); // Перевірка, чи збережений нікнейм у браузері
 });
 function copyIP(){navigator.clipboard.writeText('play.spireworld.ua').then(()=>toast('IP скопійовано!'));}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
@@ -643,23 +693,92 @@ function renderShop() {
     </div>
   `).join('');
 }
-// Перший рендер при завантаженні
 renderShop();
 
-// ЛОГІКА МОДАЛОК
+// ЛОГІКА ОСОБИСТОГО КАБІНЕТУ (СИМУЛЯЦІЯ БАЗИ)
+function checkCabinetStatus() {
+  const savedUser = localStorage.getItem('sw_user');
+  if(savedUser) {
+    document.getElementById('cabLoginBox').style.display = 'none';
+    document.getElementById('cabProfileBox').style.display = 'block';
+    document.getElementById('cabName').textContent = savedUser;
+    document.getElementById('cabAvatar').textContent = savedUser.charAt(0).toUpperCase();
+  } else {
+    document.getElementById('cabLoginBox').style.display = 'block';
+    document.getElementById('cabProfileBox').style.display = 'none';
+  }
+}
+
+function loginCabinet() {
+  const nick = document.getElementById('cabNickInput').value.trim();
+  if(nick.length < 3) {
+    toast('❌ Нікнейм має бути довшим за 3 символи');
+    return;
+  }
+  localStorage.setItem('sw_user', nick); // Зберігаємо в пам'ять браузера
+  toast('✅ Вхід виконано!');
+  checkCabinetStatus();
+}
+
+function logoutCabinet() {
+  localStorage.removeItem('sw_user'); // Видаляємо з пам'яті браузера
+  toast('👋 Ви вийшли з акаунта');
+  checkCabinetStatus();
+}
+
+// ЛОГІКА МОДАЛОК І ФОРМИ FORMSUBMIT ЧЕРЕЗ AJAX
 function openBuyModal(itemName, itemPrice, serverName) {
   const ov = document.getElementById('buyModalOverlay');
   
-  // Встановлюємо текст у модалці
   document.getElementById('buyTitle').textContent = 'Купити ' + itemName;
   document.getElementById('buyDesc').textContent = `Сервер: ${serverName} | До сплати: ${itemPrice} ₴`;
   
-  // Заповнюємо приховані поля для FormSubmit
   document.getElementById('formServer').value = serverName;
   document.getElementById('formItem').value = itemName;
   document.getElementById('formPrice').value = itemPrice + ' ₴';
 
+  // Якщо гравець залогінений у кабінеті, автоматично підставляємо його нік
+  const savedUser = localStorage.getItem('sw_user');
+  if(savedUser) {
+    document.getElementById('buyNickInput').value = savedUser;
+  }
+
   ov.classList.add('open');
+}
+
+// ВІДПРАВКА БЕЗ ПЕРЕХОДУ НА СТОРІНКУ FORMSUBMIT
+function submitBuyForm(event) {
+  event.preventDefault(); // Зупиняє стандартний перехід на сторінку
+  
+  const form = event.target;
+  const btn = document.getElementById('submitBuyBtn');
+  btn.textContent = 'Відправка...';
+  btn.disabled = true;
+
+  // Збираємо дані з форми
+  const formData = new FormData(form);
+
+  // Використовуємо спеціальний AJAX URL FormSubmit
+  fetch("https://formsubmit.co/ajax/simpleworld237@gmail.com", {
+      method: "POST",
+      body: formData,
+      headers: {
+          'Accept': 'application/json'
+      }
+  })
+  .then(response => response.json())
+  .then(data => {
+      closeModal(null, 'buyModalOverlay');
+      toast('✅ Замовлення відправлено! Перевір пошту.');
+      form.reset(); // Очищаємо форму
+      btn.textContent = 'Відправити замовлення';
+      btn.disabled = false;
+  })
+  .catch(error => {
+      toast('❌ Сталася помилка. Спробуй пізніше.');
+      btn.textContent = 'Відправити замовлення';
+      btn.disabled = false;
+  });
 }
 
 function openForumModal() {
@@ -678,7 +797,7 @@ function submitForum() {
   toast('✅ Тема успішно створена!');
 }
 
-// FORUM DATA (Трохи скоротив для чистоти коду, топ гравців видалено повністю)
+// ФОРУМ
 const posts=[
   {e:'📢',bg:'#FFF7ED',title:'Оновлення 2.5 — новий PvP-ліг!',auth:'Admin_Vlad',cat:'Оголошення',time:'2 год тому',r:34},
   {e:'🏝️',bg:'#EFF6FF',title:'Вайп на Анархії завтра!',auth:'SkyKing_Oleg',cat:'Загальне',time:'5 год тому',r:18},
@@ -687,7 +806,7 @@ const posts=[
 ];
 document.getElementById('postList').innerHTML=posts.map(p=>`<div class="post-item"><div class="post-ava" style="background:${p.bg}">${p.e}</div><div class="post-meta"><div class="post-title">${p.title}</div><div class="post-info">${p.auth} · ${p.cat} · ${p.time}</div></div><div class="post-reps"><div class="pr-n">${p.r}</div><div class="pr-l">відп.</div></div></div>`).join('');
 
-// RULES DATA
+// ПРАВИЛА
 const rules=[
   {n:'01',title:'Повага до гравців',desc:'Заборонено ображати, принижувати або погрожувати іншим гравцям у чаті, повідомленнях або на форумі. За порушення — мут від 1 год до перманентного.'},
   {n:'02',title:'Заборона читів і макросів',desc:'Будь-яке ПЗ, що дає нечесну перевагу (автоклікер, X-Ray, fly-hack тощо) — заборонено. Бан перманентний без права апеляції.'},
