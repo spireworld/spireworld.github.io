@@ -342,9 +342,11 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
 .toast.show{transform:translateY(0);opacity:1;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ВИПРАВЛЕНО БАГ З МОБІЛЬНИМ МЕНЮ */
 @media(max-width:768px){
-  nav{padding:0 16px;}
-  .nav-links{display:none;}
+  nav{padding:0 16px; overflow-x: auto;}
+  .nav-links{display:flex; padding-bottom: 4px;}
   section{padding-top:62px;}
   .pi{padding:36px 18px 52px;}
   .hero-wrap{padding:44px 18px 0;}
@@ -375,8 +377,7 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </ul>
 </nav>
 
-<!-- HOME -->
-<section id="home">
+<section id="home" class="active">
   <div class="hero-wrap">
     <div class="hero-pill"><div class="pill-dot"></div>247 гравців зараз онлайн</div>
     <h1 class="hero-title">SPIRE<span class="o">WORLD</span></h1>
@@ -410,7 +411,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </section>
 
-<!-- START -->
 <section id="start">
   <div class="pi">
     <div class="ph">
@@ -445,7 +445,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </section>
 
-<!-- SHOP -->
 <section id="shop">
   <div class="pi">
     <div class="ph">
@@ -463,7 +462,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </section>
 
-<!-- FORUM -->
 <section id="forum">
   <div class="pi">
     <div class="ph">
@@ -484,7 +482,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </section>
 
-<!-- LEADERBOARD -->
 <section id="leaderboard">
   <div class="pi">
     <div class="ph">
@@ -498,7 +495,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </section>
 
-<!-- RULES -->
 <section id="rules">
   <div class="pi">
     <div class="ph">
@@ -509,7 +505,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="fg">
     <div class="fb">
@@ -552,7 +547,6 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
   </div>
 </footer>
 
-<!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
   <div class="modal">
     <h2 id="mTitle">Нова тема</h2>
@@ -571,7 +565,13 @@ footer{background:var(--text);color:rgba(255,255,255,.65);padding:52px 40px 26px
 <script>
 function show(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 function countUp(el,target){let v=0,step=Math.ceil(target/50);const t=setInterval(()=>{v=Math.min(v+step,target);el.textContent=v.toLocaleString('uk');if(v>=target)clearInterval(t);},22);}
-window.addEventListener('load',()=>{countUp(document.getElementById('s1'),247);countUp(document.getElementById('s2'),12480);countUp(document.getElementById('s3'),387);countUp(document.getElementById('s4'),6);});
+window.addEventListener('load',()=>{
+  show('home'); // ВИПРАВЛЕННЯ: Додано автоматичний показ головної сторінки при завантаженні
+  countUp(document.getElementById('s1'),247);
+  countUp(document.getElementById('s2'),12480);
+  countUp(document.getElementById('s3'),387);
+  countUp(document.getElementById('s4'),6);
+});
 function copyIP(){navigator.clipboard.writeText('play.spireworld.ua').then(()=>toast('IP скопійовано!'));}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
 
