@@ -1,2034 +1,533 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SpireWorld — Minecraft Server</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --orange: #F26419;
-  --orange-light: #FF8A4C;
-  --orange-pale: #FFF0E8;
-  --orange-pale2: #FFD9C0;
-  --white: #FFFFFF;
-  --bg: #F8F5F1;
-  --bg2: #F2EDE6;
-  --text: #1C1410;
-  --text2: #6B5C50;
-  --text3: #A8917F;
-  --border: #E6DDD4;
-  --border2: #D4C4B5;
-  --shadow: 0 2px 16px rgba(242,100,25,0.08);
-  --shadow-lg: 0 8px 40px rgba(242,100,25,0.13);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-}
-
-/* NAV */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 62px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-}
-
-.nav-logo {
-  font-family: 'Syne', sans-serif;
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--text);
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.nav-logo span {
-  color: var(--orange);
-}
-
-.nl-dot {
-  width: 8px;
-  height: 8px;
-  background: #22C55E;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  list-style: none;
-}
-
-.nav-links a {
-  color: var(--text2);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 7px 13px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background .15s, color .15s;
-}
-
-.nav-links a:hover {
-  background: var(--orange-pale);
-  color: var(--orange);
-}
-
-.nav-links .cta {
-  background: var(--orange);
-  color: #fff !important;
-  padding: 8px 18px;
-  border-radius: 8px;
-  margin-left: 6px;
-  transition: box-shadow .2s, transform .15s !important;
-}
-
-.nav-links .cta:hover {
-  box-shadow: 0 4px 18px rgba(242, 100, 25, .35);
-  transform: translateY(-1px);
-}
-
-/* SECTIONS */
-section {
-  display: none;
-  min-height: 100vh;
-  padding-top: 62px;
-}
-
-section.active {
-  display: block;
-}
-
-/* HOME */
-#home {
-  background: var(--white);
-}
-
-.hero-wrap {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 68px 40px 0;
-  text-align: center;
-}
-
-.hero-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--orange-pale);
-  border: 1px solid var(--orange-pale2);
-  border-radius: 100px;
-  padding: 5px 15px;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--orange);
-  letter-spacing: .8px;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  animation: fadeUp .45s ease both;
-}
-
-.pill-dot {
-  width: 7px;
-  height: 7px;
-  background: #22C55E;
-  border-radius: 50%;
-}
-
-h1.hero-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(52px, 7.5vw, 100px);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -3px;
-  color: var(--text);
-  margin-bottom: 10px;
-  animation: fadeUp .45s ease .06s both;
-}
-
-h1.hero-title .o {
-  color: var(--orange);
-}
-
-.hero-sub {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text3);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 38px;
-  animation: fadeUp .45s ease .1s both;
-}
-
-.ip-bar {
-  display: inline-flex;
-  align-items: center;
-  background: var(--bg);
-  border: 1.5px solid var(--border2);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 34px;
-  animation: fadeUp .45s ease .14s both;
-}
-
-.ip-text {
-  padding: 12px 22px;
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text);
-  border-right: 1.5px solid var(--border2);
-}
-
-.ip-btn {
-  padding: 12px 18px;
-  background: transparent;
-  border: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--orange);
-  cursor: pointer;
-  transition: background .15s;
-}
-
-.ip-btn:hover {
-  background: var(--orange-pale);
-}
-
-.hero-btns {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 60px;
-  animation: fadeUp .45s ease .18s both;
-}
-
-.btn-pri {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 12px 28px;
-  border-radius: 9px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: box-shadow .2s, transform .15s;
-}
-
-.btn-pri:hover {
-  box-shadow: 0 6px 22px rgba(242, 100, 25, .35);
-  transform: translateY(-2px);
-}
-
-.btn-sec {
-  background: transparent;
-  color: var(--text);
-  border: 1.5px solid var(--border2);
-  padding: 12px 28px;
-  border-radius: 9px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: border-color .15s, color .15s, background .15s;
-}
-
-.btn-sec:hover {
-  border-color: var(--orange);
-  color: var(--orange);
-  background: var(--orange-pale);
-}
-
-.stats-band {
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 30px 40px;
-  display: flex;
-  justify-content: center;
-  gap: 70px;
-  flex-wrap: wrap;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 34px;
-  font-weight: 800;
-  color: var(--orange);
-  line-height: 1;
-}
-
-.stat-lbl {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text3);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-top: 4px;
-}
-
-.features-sec {
-  background: var(--white);
-  padding: 64px 40px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.sec-lbl {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 6px;
-}
-
-.sec-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 800;
-  color: var(--text);
-  letter-spacing: -1px;
-  margin-bottom: 36px;
-}
-
-.sec-title span {
-  color: var(--orange);
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 14px;
-}
-
-.feat-card {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: 14px;
-  padding: 22px;
-  transition: border-color .2s, box-shadow .2s;
-}
-
-.feat-card:hover {
-  border-color: var(--orange-pale2);
-  box-shadow: var(--shadow);
-}
-
-.feat-icon {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.feat-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 5px;
-}
-
-.feat-desc {
-  font-size: 13px;
-  color: var(--text2);
-  line-height: 1.65;
-}
-
-/* PAGE INNER */
-.pi {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 60px 40px 70px;
-}
-
-.ph {
-  margin-bottom: 44px;
-}
-
-/* START */
-#start {
-  background: var(--white);
-}
-
-.start-grid {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 56px;
-  align-items: start;
-}
-
-.steps {
-  display: flex;
-  flex-direction: column;
-}
-
-.step {
-  display: flex;
-  gap: 16px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.step:last-child {
-  border-bottom: none;
-}
-
-.step-n {
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--orange);
-  background: var(--orange-pale);
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.step-b h3 {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 5px;
-}
-
-.step-b p {
-  font-size: 13px;
-  color: var(--text2);
-  line-height: 1.65;
-}
-
-.step-b code {
-  display: inline-block;
-  margin-top: 8px;
-  background: var(--orange-pale);
-  color: var(--orange);
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 6px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--orange-pale2);
-}
-
-.srv-panel {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  position: sticky;
-  top: 78px;
-}
-
-.srv-hd {
-  background: var(--orange);
-  color: #fff;
-  padding: 18px 22px;
-}
-
-.srv-hd h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 800;
-  margin-bottom: 2px;
-}
-
-.srv-hd p {
-  font-size: 12px;
-  opacity: .8;
-}
-
-.ob {
-  margin: 14px 18px 0;
-  background: #F0FDF4;
-  border: 1px solid #BBF7D0;
-  border-radius: 9px;
-  padding: 11px 14px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.ob-dot {
-  width: 8px;
-  height: 8px;
-  background: #22C55E;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.ob-t {
-  font-size: 13px;
-  font-weight: 700;
-  color: #15803D;
-}
-
-.ob-n {
-  margin-left: auto;
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  color: #22C55E;
-}
-
-.srv-rows {
-  padding: 6px 0;
-}
-
-.srv-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 18px;
-  border-bottom: 1px solid var(--border);
-}
-
-.srv-row:last-child {
-  border-bottom: none;
-}
-
-.sr-l {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text3);
-}
-
-.sr-v {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--text);
-}
-
-.sr-v.o {
-  color: var(--orange);
-  font-family: 'Syne';
-  font-size: 13px;
-}
-
-/* CABINET */
-#cabinet {
-  background: var(--white);
-}
-
-.cab-container {
-  max-width: 550px;
-  margin: 0 auto;
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 40px;
-  text-align: center;
-}
-
-.cab-ava {
-  width: 80px;
-  height: 80px;
-  background: var(--orange-pale);
-  border: 2px solid var(--orange);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 34px;
-  margin: 0 auto 15px;
-}
-
-.cab-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 5px;
-}
-
-.cab-rank {
-  display: inline-block;
-  background: #F59E0B;
-  color: #fff;
-  padding: 4px 12px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 25px;
-}
-
-.cab-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.c-stat {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  padding: 15px;
-  border-radius: 12px;
-}
-
-.c-stat-lbl {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--text3);
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
-
-.c-stat-val {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--orange);
-}
-
-.cab-inventory {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: left;
-  margin-bottom: 25px;
-}
-
-.cab-inv-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 15px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 10px;
-}
-
-.inv-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.inv-item {
-  background: var(--bg);
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text2);
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid var(--border);
-}
-
-.inv-item span {
-  color: var(--orange);
-  font-family: 'Syne', sans-serif;
-}
-
-.auth-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  justify-content: center;
-}
-
-.auth-tab {
-  background: transparent;
-  border: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text3);
-  cursor: pointer;
-  padding-bottom: 5px;
-  border-bottom: 2px solid transparent;
-  transition: all .2s;
-}
-
-.auth-tab.active {
-  color: var(--orange);
-  border-color: var(--orange);
-}
-
-.auth-form {
-  display: none;
-}
-
-.auth-form.active {
-  display: block;
-}
-
-.auth-input {
-  width: 100%;
-  border: 1.5px solid var(--border);
-  border-radius: 9px;
-  padding: 12px 15px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  margin-bottom: 15px;
-  outline: none;
-  transition: border-color .2s;
-  background: var(--white);
-}
-
-.auth-input:focus {
-  border-color: var(--orange);
-}
-
-/* SHOP */
-#shop {
-  background: var(--bg);
-}
-
-.shop-servers {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
-}
-
-.server-tab {
-  background: var(--bg2);
-  border: 1.5px solid var(--border);
-  color: var(--text);
-  padding: 10px 24px;
-  border-radius: 12px;
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all .2s;
-}
-
-.server-tab:hover, .server-tab.active {
-  background: var(--text);
-  border-color: var(--text);
-  color: #fff;
-}
-
-.shop-tabs {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-  padding-top: 15px;
-  border-top: 1px solid var(--border);
-}
-
-.shop-tab {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  color: var(--text2);
-  padding: 7px 16px;
-  border-radius: 100px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all .15s;
-}
-
-.shop-tab:hover, .shop-tab.active {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: #fff;
-}
-
-.shop-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
-}
-
-.dc {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  transition: box-shadow .2s, transform .2s;
-}
-
-.dc:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
-}
-
-.dc.pop {
-  border-color: var(--orange);
-}
-
-.pop-badge {
-  position: absolute;
-  top: 11px;
-  right: 11px;
-  background: var(--orange);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .8px;
-  text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 100px;
-}
-
-.dc-top {
-  height: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 50px;
-}
-
-.dc-body {
-  padding: 16px 18px 18px;
-}
-
-.dc-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-
-.dc-desc {
-  font-size: 12px;
-  color: var(--text2);
-  margin-bottom: 12px;
-  line-height: 1.6;
-}
-
-.dc-perks {
-  list-style: none;
-  margin-bottom: 16px;
-}
-
-.dc-perks li {
-  font-size: 12px;
-  color: var(--text2);
-  padding: 3px 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-}
-
-.dc-perks li::before {
-  content: '✓';
-  color: var(--orange);
-  font-weight: 900;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.dc-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-}
-
-.dc-price {
-  font-family: 'Syne', sans-serif;
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--orange);
-}
-
-.dc-price small {
-  font-size: 12px;
-  color: var(--text3);
-  font-family: 'Nunito';
-  font-weight: 700;
-}
-
-.btn-buy {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: box-shadow .2s;
-}
-
-.btn-buy:hover {
-  box-shadow: 0 4px 14px rgba(242, 100, 25, .35);
-}
-
-/* FORUM */
-#forum {
-  background: var(--bg);
-}
-
-.forum-cats {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 10px;
-  margin-bottom: 36px;
-}
-
-.fcat {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  cursor: pointer;
-  transition: border-color .15s, box-shadow .15s;
-}
-
-.fcat:hover {
-  border-color: var(--orange-pale2);
-  box-shadow: var(--shadow);
-}
-
-.fcat-ico {
-  font-size: 22px;
-}
-
-.fcat-info h3 {
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 1px;
-}
-
-.fcat-info p {
-  font-size: 11px;
-  color: var(--text3);
-}
-
-.fcat-count {
-  margin-left: auto;
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--orange);
-}
-
-.new-topic-btn {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 9px 20px;
-  border-radius: 9px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: box-shadow .2s;
-  margin-bottom: 18px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.new-topic-btn:hover {
-  box-shadow: 0 4px 16px rgba(242, 100, 25, .35);
-}
-
-.forum-top-lbl {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.forum-top-lbl::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.post-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.post-item {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 13px 16px;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  cursor: pointer;
-  transition: border-color .15s;
-}
-
-.post-item:hover {
-  border-color: var(--orange-pale2);
-}
-
-.post-ava {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  flex-shrink: 0;
-}
-
-.post-meta {
-  flex: 1;
-}
-
-.post-title {
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 2px;
-}
-
-.post-info {
-  font-size: 12px;
-  color: var(--text3);
-}
-
-.post-reps {
-  text-align: right;
-}
-
-.pr-n {
-  font-family: 'Syne', sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--orange);
-}
-
-.pr-l {
-  font-size: 11px;
-  color: var(--text3);
-}
-
-/* RULES */
-#rules {
-  background: var(--bg);
-}
-
-.rules-inner {
-  max-width: 700px;
-}
-
-.rule-item {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 13px;
-  padding: 20px 22px;
-  margin-bottom: 10px;
-  display: flex;
-  gap: 16px;
-  transition: border-color .15s;
-}
-
-.rule-item:hover {
-  border-color: var(--orange-pale2);
-}
-
-.rule-n {
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--orange);
-  background: var(--orange-pale);
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.rule-b h3 {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.rule-b p {
-  font-size: 13px;
-  color: var(--text2);
-  line-height: 1.65;
-}
-
-/* FOOTER */
-footer {
-  background: var(--text);
-  color: rgba(255, 255, 255, .65);
-  padding: 52px 40px 26px;
-}
-
-.fg {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 36px;
-}
-
-.fb .fl {
-  font-family: 'Syne', sans-serif;
-  font-size: 19px;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 9px;
-}
-
-.fb .fl span {
-  color: var(--orange);
-}
-
-.fb p {
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.fc h4 {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, .3);
-  margin-bottom: 12px;
-}
-
-.fc ul {
-  list-style: none;
-}
-
-.fc li {
-  margin-bottom: 7px;
-}
-
-.fc a {
-  font-size: 13px;
-  color: rgba(255, 255, 255, .5);
-  cursor: pointer;
-  text-decoration: none;
-  transition: color .15s;
-}
-
-.fc a:hover {
-  color: var(--orange);
-}
-
-.fbot {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, .08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.fbot p {
-  font-size: 12px;
-  color: rgba(255, 255, 255, .22);
-}
-
-.socs {
-  display: flex;
-  gap: 7px;
-}
-
-.soc {
-  width: 33px;
-  height: 33px;
-  border: 1px solid rgba(255, 255, 255, .1);
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all .15s;
-}
-
-.soc:hover {
-  background: rgba(242, 100, 25, .15);
-  border-color: var(--orange);
-}
-
-/* MODALS */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(20, 12, 6, .5);
-  z-index: 9000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s;
-  backdrop-filter: blur(4px);
-}
-
-.overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal {
-  background: var(--white);
-  border-radius: 18px;
-  padding: 34px;
-  max-width: 420px;
-  width: 90%;
-  border: 1.5px solid var(--border);
-  transform: scale(.96);
-  transition: transform .2s;
-}
-
-.overlay.open .modal {
-  transform: scale(1);
-}
-
-.modal h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 5px;
-}
-
-.modal p {
-  font-size: 13px;
-  color: var(--text2);
-  margin-bottom: 18px;
-  line-height: 1.6;
-}
-
-.modal input, .modal textarea {
-  width: 100%;
-  border: 1.5px solid var(--border);
-  border-radius: 9px;
-  padding: 11px 13px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  color: var(--text);
-  background: var(--bg);
-  outline: none;
-  margin-bottom: 9px;
-  transition: border-color .15s;
-}
-
-.modal input:focus, .modal textarea:focus {
-  border-color: var(--orange);
-}
-
-.mfoot {
-  display: flex;
-  gap: 9px;
-  margin-top: 4px;
-}
-
-.m-cancel {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  color: var(--text2);
-  padding: 10px 18px;
-  border-radius: 9px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 26px;
-  right: 26px;
-  background: var(--text);
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 9px;
-  font-size: 13px;
-  font-weight: 800;
-  z-index: 9999;
-  transform: translateY(70px);
-  opacity: 0;
-  transition: all .25s;
-  box-shadow: 0 6px 28px rgba(0, 0, 0, .2);
-}
-
-.toast.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media(max-width:768px) {
-  nav { padding: 0 16px; overflow-x: auto; }
-  .nav-links { display: flex; padding-bottom: 4px; }
-  section { padding-top: 62px; }
-  .pi { padding: 36px 18px 52px; }
-  .hero-wrap { padding: 44px 18px 0; }
-  .stats-band { gap: 28px; padding: 26px 18px; }
-  .features-sec { padding: 44px 18px; }
-  .start-grid { grid-template-columns: 1fr; }
-  .fg { grid-template-columns: 1fr 1fr; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpireWorld — Minecraft Сервер</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --orange: #F26419; --orange-pale: #FFF0E8; --white: #FFFFFF;
+            --bg: #F8F5F1; --text: #1C1410; --text2: #6B5C50; --text3: #A8917F;
+            --border: #E6DDD4; --border2: #D4C4B5;
+        }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 68px;
+            background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border); display: flex; align-items: center;
+            justify-content: space-between; padding: 0 40px;
+        }
+        .logo { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; cursor: pointer; display: flex; gap: 10px; }
+        .logo span { color: var(--orange); }
+        .logo-dot { width: 8px; height: 8px; background: #22C55E; border-radius: 50%; }
+        .nav-links { display: flex; gap: 8px; list-style: none; }
+        .nav-links a { color: var(--text2); text-decoration: none; font-size: 14px; font-weight: 700; padding: 8px 16px; border-radius: 10px; cursor: pointer; }
+        .nav-links a:hover { background: var(--orange-pale); color: var(--orange); }
+        .nav-links .nav-btn { background: var(--orange); color: white !important; }
+        section { display: none; min-height: 100vh; padding-top: 68px; }
+        section.active { display: block; }
+        #home { background: var(--white); }
+        .hero { max-width: 1000px; margin: 0 auto; padding: 80px 40px 0; text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--orange-pale); border: 1px solid #FFD9C0; border-radius: 100px; padding: 6px 18px; font-size: 12px; font-weight: 800; color: var(--orange); margin-bottom: 30px; }
+        h1 { font-family: 'Syne', sans-serif; font-size: clamp(48px, 8vw, 100px); font-weight: 800; line-height: 1; letter-spacing: -3px; }
+        h1 span { color: var(--orange); }
+        .hero-sub { font-size: 14px; font-weight: 700; color: var(--text3); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
+        .ip-card { display: inline-flex; background: var(--bg); border: 2px solid var(--border2); border-radius: 14px; overflow: hidden; margin-bottom: 35px; }
+        .ip-text { padding: 14px 28px; font-family: 'Syne', sans-serif; font-weight: 700; border-right: 2px solid var(--border2); }
+        .ip-copy { padding: 14px 24px; background: transparent; border: none; font-weight: 800; color: var(--orange); cursor: pointer; }
+        .btn-primary { background: var(--orange); color: white; border: none; padding: 14px 32px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+        .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--border2); padding: 14px 32px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; margin-bottom: 70px; }
+        .stats { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px; display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-number { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; color: var(--orange); }
+        .stat-label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; margin-top: 5px; }
+        .features { padding: 70px 40px; max-width: 1100px; margin: 0 auto; }
+        .section-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+        .section-title { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 40px; }
+        .section-title span { color: var(--orange); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .feature-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+        .feature-icon { font-size: 36px; margin-bottom: 12px; }
+        .feature-title { font-family: 'Syne', sans-serif; font-weight: 800; }
+        .feature-desc { font-size: 13px; color: var(--text2); }
+        .page-container { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+        
+        .cabinet-box { max-width: 520px; margin: 0 auto; background: var(--bg); border: 1px solid var(--border); border-radius: 24px; padding: 45px; text-align: center; }
+        .cabinet-avatar { width: 90px; height: 90px; background: var(--orange-pale); border: 2px solid var(--orange); border-radius: 25px; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 15px; }
+        .cabinet-name { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; }
+        .cabinet-rank { display: inline-block; background: #F59E0B; color: white; padding: 5px 14px; border-radius: 100px; font-size: 11px; font-weight: 800; margin-bottom: 25px; }
+        .cabinet-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .cabinet-stat { background: white; border: 1px solid var(--border); padding: 18px; border-radius: 14px; }
+        .cabinet-stat-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--orange); }
+        .cabinet-inventory { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: left; margin-bottom: 25px; }
+        .inventory-item { background: var(--bg); padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; }
+        .inventory-item span { color: var(--orange); }
+        .auth-tabs { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; }
+        .auth-tab { background: none; border: none; font-weight: 800; color: var(--text3); cursor: pointer; padding-bottom: 5px; border-bottom: 2px solid transparent; }
+        .auth-tab.active { color: var(--orange); border-color: var(--orange); }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .auth-input { width: 100%; border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 15px; background: white; }
+        
+        .shop-servers { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .server-btn { background: #F2EDE6; border: 1px solid var(--border); padding: 10px 28px; border-radius: 14px; font-weight: 800; cursor: pointer; }
+        .server-btn.active, .server-btn:hover { background: var(--text); color: white; }
+        .shop-categories { display: flex; gap: 10px; margin-bottom: 35px; flex-wrap: wrap; }
+        .category-btn { background: white; border: 1px solid var(--border); padding: 8px 20px; border-radius: 100px; font-weight: 800; cursor: pointer; }
+        .category-btn.active, .category-btn:hover { background: var(--orange); color: white; }
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
+        .product { background: white; border: 1px solid var(--border); border-radius: 18px; overflow: hidden; position: relative; }
+        .product.popular { border-color: var(--orange); }
+        .popular-badge { position: absolute; top: 12px; right: 12px; background: var(--orange); color: white; font-size: 10px; padding: 4px 12px; border-radius: 100px; }
+        .product-icon { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 55px; }
+        .product-body { padding: 18px; }
+        .product-name { font-family: 'Syne', sans-serif; font-weight: 800; }
+        .product-perks { list-style: none; margin: 12px 0; }
+        .product-perks li { font-size: 12px; padding: 4px 0; display: flex; gap: 6px; }
+        .product-perks li::before { content: "✓"; color: var(--orange); font-weight: 900; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+        .product-price { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--orange); }
+        .buy-btn { background: var(--orange); color: white; border: none; padding: 8px 18px; border-radius: 10px; font-weight: 800; cursor: pointer; }
+
+        .forum-categories { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 40px; }
+        .forum-cat { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+        .forum-cat-icon { font-size: 28px; }
+        .forum-cat-count { margin-left: auto; font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--orange); }
+        .new-topic { background: var(--orange); color: white; border: none; padding: 10px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-bottom: 25px; }
+        .topics-list { display: flex; flex-direction: column; gap: 10px; }
+        .topic-item { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; }
+        .topic-avatar { width: 40px; height: 40px; background: var(--orange-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .topic-info { flex: 1; }
+        .topic-title { font-weight: 800; }
+        .topic-meta { font-size: 11px; color: var(--text3); }
+        .replies-number { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--orange); }
+
+        .rules-list { max-width: 750px; }
+        .rule { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 22px 25px; margin-bottom: 14px; display: flex; gap: 18px; }
+        .rule-number { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--orange); background: var(--orange-pale); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+
+        footer { background: var(--text); color: rgba(255,255,255,0.6); padding: 50px 40px 30px; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; }
+        .footer-brand .brand { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: white; }
+        .footer-brand .brand span { color: var(--orange); }
+        .footer-col h4 { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 15px; }
+        .footer-col a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; cursor: pointer; }
+        .footer-col a:hover { color: var(--orange); }
+        .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+
+        .support-fab { position: fixed; bottom: 30px; right: 30px; background: var(--orange); width: 60px; height: 60px; border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; z-index: 100; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.2s; }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal { background: white; border-radius: 28px; padding: 35px; max-width: 480px; width: 90%; }
+        .modal-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .toast { position: fixed; bottom: 30px; right: 30px; background: var(--text); color: white; padding: 14px 24px; border-radius: 12px; z-index: 3000; transform: translateY(80px); opacity: 0; transition: 0.25s; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } nav { padding: 0 20px; } }
+    </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="show('home')">
-    <div class="nl-dot"></div>
-    Spire<span>World</span>
-  </a>
-  <ul class="nav-links">
-    <li><a onclick="show('home')">Головна</a></li>
-    <li><a onclick="show('start')">Почати грати</a></li>
-    <li><a onclick="show('shop')">Магазин</a></li>
-    <li><a onclick="show('forum')">Форум</a></li>
-    <li><a onclick="show('rules')">Правила</a></li>
-    <li><a class="cta" onclick="show('cabinet')">👤 Кабінет</a></li>
-  </ul>
+    <div class="logo" onclick="showPage('home')"><div class="logo-dot"></div>Spire<span>World</span></div>
+    <ul class="nav-links">
+        <li><a onclick="showPage('home')">Головна</a></li>
+        <li><a onclick="showPage('cabinet')">Кабінет</a></li>
+        <li><a onclick="showPage('shop')">Магазин</a></li>
+        <li><a onclick="showPage('forum')">Форум</a></li>
+        <li><a onclick="showPage('rules')">Правила</a></li>
+        <li><a class="nav-btn" onclick="showPage('cabinet')">👤 Кабінет</a></li>
+    </ul>
 </nav>
 
+<div class="support-fab" onclick="openSupportModal()">💬</div>
+
+<!-- ГОЛОВНА -->
 <section id="home" class="active">
-  <div class="hero-wrap">
-    <div class="hero-pill"><div class="pill-dot"></div>247 гравців зараз онлайн</div>
-    <h1 class="hero-title">SPIRE<span class="o">WORLD</span></h1>
-    <p class="hero-sub">Survival · SkyBlock · Creative · PvP</p>
-    <div class="ip-bar">
-      <div class="ip-text">play.spireworld.ua</div>
-      <button class="ip-btn" onclick="copyIP()">📋 Копіювати IP</button>
+    <div class="hero">
+        <div class="hero-badge"><div class="logo-dot"></div>247 гравців зараз онлайн</div>
+        <h1>SPIRE<span>WORLD</span></h1>
+        <p class="hero-sub">Survival · SkyBlock · Creative · PvP</p>
+        <div class="ip-card"><div class="ip-text">play.spireworld.ua</div><button class="ip-copy" onclick="copyIP()">📋 Копіювати IP</button></div>
+        <div class="hero-buttons"><button class="btn-primary" onclick="showPage('cabinet')">Почати гру</button><button class="btn-secondary" onclick="showPage('shop')">Магазин донатів</button></div>
     </div>
-    <div class="hero-btns">
-      <button class="btn-pri" onclick="show('start')">Почати грати</button>
-      <button class="btn-sec" onclick="show('shop')">Магазин донатів</button>
-    </div>
-  </div>
-  <div class="stats-band">
-    <div class="stat-item"><div class="stat-num" id="s1">0</div><div class="stat-lbl">Гравців онлайн</div></div>
-    <div class="stat-item"><div class="stat-num" id="s2">0</div><div class="stat-lbl">Зареєстровано</div></div>
-    <div class="stat-item"><div class="stat-num" id="s3">0</div><div class="stat-lbl">Днів роботи</div></div>
-    <div class="stat-item"><div class="stat-num" id="s4">0</div><div class="stat-lbl">Режимів гри</div></div>
-  </div>
-  <div class="features-sec">
-    <div class="sec-lbl">Можливості</div>
-    <div class="sec-title">Що чекає тебе на <span>SpireWorld</span></div>
-    <div class="features-grid">
-      <div class="feat-card"><div class="feat-icon">⚔️</div><div class="feat-name">PvP Арени</div><div class="feat-desc">Рейтингові бої, турніри та щотижневі нагороди для найкращих.</div></div>
-      <div class="feat-card"><div class="feat-icon">🏝️</div><div class="feat-name">SkyBlock</div><div class="feat-desc">Будуй острів з нуля і змагайся з іншими гравцями.</div></div>
-      <div class="feat-card"><div class="feat-icon">🏕️</div><div class="feat-name">Survival</div><div class="feat-desc">Класичне виживання з клановою системою та захопленням фортець.</div></div>
-      <div class="feat-card"><div class="feat-icon">🎨</div><div class="feat-name">Creative</div><div class="feat-desc">Безмежна творчість на plot-сервері з великими ділянками.</div></div>
-      <div class="feat-card"><div class="feat-icon">💰</div><div class="feat-name">Економіка</div><div class="feat-desc">Своя валюта, аукціон та магазини гравців на всіх режимах.</div></div>
-      <div class="feat-card"><div class="feat-icon">🛡️</div><div class="feat-name">Захист</div><div class="feat-desc">Анти-чит, захист земель та підтримка адміністрації 24/7.</div></div>
-    </div>
-  </div>
+    <div class="stats"><div class="stat"><div class="stat-number" id="statOnline">247</div><div class="stat-label">Гравців онлайн</div></div>
+    <div class="stat"><div class="stat-number" id="statRegistered">12480</div><div class="stat-label">Зареєстровано</div></div>
+    <div class="stat"><div class="stat-number" id="statDays">387</div><div class="stat-label">Днів роботи</div></div></div>
+    <div class="features"><div class="section-label">Можливості</div><div class="section-title">Що чекає тебе на <span>SpireWorld</span></div>
+    <div class="features-grid"><div class="feature-card"><div class="feature-icon">⚔️</div><div class="feature-title">PvP Арени</div><div class="feature-desc">Рейтингові бої та турніри</div></div>
+    <div class="feature-card"><div class="feature-icon">🏝️</div><div class="feature-title">SkyBlock</div><div class="feature-desc">Будуй острів з нуля</div></div>
+    <div class="feature-card"><div class="feature-icon">🏕️</div><div class="feature-title">Survival</div><div class="feature-desc">Класичне виживання</div></div>
+    <div class="feature-card"><div class="feature-icon">🎨</div><div class="feature-title">Creative</div><div class="feature-desc">Безмежна творчість</div></div></div></div>
 </section>
 
-<section id="start">
-  <div class="pi">
-    <div class="ph">
-      <div class="sec-lbl">Гайд для новачків</div>
-      <div class="sec-title">Почати <span>грати</span></div>
-    </div>
-    <div class="start-grid">
-      <div class="steps">
-        <div class="step">
-          <div class="step-n">1</div>
-          <div class="step-b">
-            <h3>Запусти Minecraft</h3>
-            <p>Відкрий офіційний лаунчер Minecraft. Підтримуємо версії 1.8–1.20.4. Рекомендована версія — <strong>1.20.4</strong>.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-n">2</div>
-          <div class="step-b">
-            <h3>Перейди в Multiplayer</h3>
-            <p>На головному меню натисни «Multiplayer» → «Add Server» і вкажи IP у поле Server Address.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-n">3</div>
-          <div class="step-b">
-            <h3>Введи IP адресу</h3>
-            <p>Скопіюй та встав адресу нижче. Порт 25565 — стандартний, зазначати окремо не потрібно.</p>
-            <code>play.spireworld.ua</code>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-n">4</div>
-          <div class="step-b">
-            <h3>Реєстрація та гра!</h3>
-            <p>Після входу введи <strong>/register [пароль] [пароль]</strong>. Якщо є акаунт — <strong>/login [пароль]</strong>. Далі вибирай режим!</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="ob"><div class="ob-dot"></div><div class="ob-t">Сервер онлайн</div><div class="ob-n">247/500</div></div>
-        <div style="height:12px"></div>
-        <div class="srv-panel">
-          <div class="srv-hd">
-            <h3>Технічна інформація</h3>
-            <p>Актуальні дані сервера</p>
-          </div>
-          <div class="srv-rows">
-            <div class="srv-row"><span class="sr-l">IP Адреса</span><span class="sr-v o">play.spireworld.ua</span></div>
-            <div class="srv-row"><span class="sr-l">Порт</span><span class="sr-v">25565</span></div>
-            <div class="srv-row"><span class="sr-l">Версія</span><span class="sr-v">1.8 – 1.20.4</span></div>
-            <div class="srv-row"><span class="sr-l">Ядро</span><span class="sr-v">Paper + Velocity</span></div>
-            <div class="srv-row"><span class="sr-l">Режими</span><span class="sr-v">Grief, Anarchy, BedWars</span></div>
-            <div class="srv-row"><span class="sr-l">Макс. гравців</span><span class="sr-v">500</span></div>
-            <div class="srv-row"><span class="sr-l">Пінг (UA)</span><span class="sr-v">~12 ms</span></div>
-            <div class="srv-row"><span class="sr-l">Аптайм</span><span class="sr-v">99.9%</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- КАБІНЕТ -->
 <section id="cabinet">
-  <div class="pi">
-    <div class="ph">
-      <div class="sec-lbl">Твій профіль</div>
-      <div class="sec-title">Особистий <span>кабінет</span></div>
+    <div class="page-container">
+        <div class="section-label">Твій профіль</div><div class="section-title">Особистий <span>кабінет</span></div>
+        <div id="authBox" class="cabinet-box"><div class="auth-tabs"><button class="auth-tab active" onclick="switchAuthTab('login')">Вхід</button><button class="auth-tab" onclick="switchAuthTab('register')">Реєстрація</button></div>
+        <div id="loginForm" class="auth-form active"><input type="text" id="loginNick" class="auth-input" placeholder="Нікнейм"><input type="password" id="loginPass" class="auth-input" placeholder="Пароль"><button class="btn-primary" style="width:100%" onclick="userLogin()">Увійти</button></div>
+        <div id="registerForm" class="auth-form"><input type="text" id="regNick" class="auth-input" placeholder="Нікнейм"><input type="password" id="regPass" class="auth-input" placeholder="Пароль"><button class="btn-primary" style="width:100%" onclick="userRegister()">Зареєструватися</button></div></div>
+        <div id="profileBox" class="cabinet-box" style="display:none"><div class="cabinet-avatar" id="profileAvatar">😎</div><div class="cabinet-name" id="profileName"></div><div class="cabinet-rank" id="profileRank">ГРАВЕЦЬ</div>
+        <div class="cabinet-stats"><div class="cabinet-stat"><div class="cabinet-stat-value" id="profileBalance">0</div><div>Баланс (₴)</div></div><div class="cabinet-stat"><div class="cabinet-stat-value" style="color:#22C55E">Онлайн</div><div>Статус</div></div></div>
+        <div class="cabinet-inventory"><div>🎁 Мої покупки</div><ul id="profileInventory" style="margin-top:15px"></ul></div>
+        <div style="display:flex; gap:12px"><button class="btn-primary" onclick="openTopupModal()">💳 Поповнити</button><button class="btn-secondary" onclick="userLogout()">Вийти</button></div></div>
     </div>
-    
-    <div class="cab-container" id="cabAuthBox">
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchAuthTab('login')">Вхід</button>
-        <button class="auth-tab" onclick="switchAuthTab('register')">Реєстрація</button>
-      </div>
-
-      <div id="loginForm" class="auth-form active">
-        <input type="text" id="logNick" class="auth-input" placeholder="Нікнейм">
-        <input type="password" id="logPass" class="auth-input" placeholder="Пароль">
-        <button class="btn-pri" style="width:100%;" onclick="loginCabinet()">Увійти в кабінет</button>
-      </div>
-
-      <div id="registerForm" class="auth-form">
-        <input type="text" id="regNick" class="auth-input" placeholder="Придумай нікнейм">
-        <input type="password" id="regPass" class="auth-input" placeholder="Придумай пароль">
-        <button class="btn-pri" style="width:100%;" onclick="registerCabinet()">Створити акаунт</button>
-      </div>
-    </div>
-
-    <div class="cab-container" id="cabProfileBox" style="display:none;">
-      <div class="cab-ava" id="cabAvatar">😎</div>
-      <div class="cab-name" id="cabName">Нікнейм</div>
-      <div class="cab-rank">ГРАВЕЦЬ</div>
-      
-      <div class="cab-stats">
-        <div class="c-stat"><div class="c-stat-lbl">Баланс (₴)</div><div class="c-stat-val" id="cabBalance">0</div></div>
-        <div class="c-stat"><div class="c-stat-lbl">Статус</div><div class="c-stat-val" style="color:#22C55E">Онлайн</div></div>
-      </div>
-      
-      <div class="cab-inventory">
-        <div class="cab-inv-title">🎁 Мої покупки (Інвентар)</div>
-        <ul class="inv-list" id="cabInventoryList">
-          </ul>
-      </div>
-
-      <div style="display:flex; gap:10px; justify-content:center;">
-        <button class="btn-pri" onclick="openTopUpModal()">💳 Поповнити баланс</button>
-        <button class="btn-sec" onclick="logoutCabinet()">Вийти</button>
-      </div>
-    </div>
-  </div>
 </section>
 
+<!-- МАГАЗИН -->
 <section id="shop">
-  <div class="pi">
-    <div class="ph">
-      <div class="sec-lbl">Офіційний магазин</div>
-      <div class="sec-title">Магазин <span>донатів</span></div>
+    <div class="page-container">
+        <div class="section-label">Офіційний магазин</div><div class="section-title">Магазин <span>донатів</span></div>
+        <div class="shop-servers"><button class="server-btn active" onclick="changeServer('grief',this)">🔥 Гріф</button><button class="server-btn" onclick="changeServer('anarchy',this)">☠️ Анархія</button><button class="server-btn" onclick="changeServer('bedwars',this)">🛏️ Бедварс</button></div>
+        <div class="shop-categories"><button class="category-btn active" onclick="changeCategory('ranks',this)">⭐ Ранги</button><button class="category-btn" onclick="changeCategory('items',this)">🎁 Предмети</button><button class="category-btn" onclick="changeCategory('currency',this)">💰 Валюта</button></div>
+        <div class="shop-grid" id="shopGrid"></div>
     </div>
-    
-    <div class="shop-servers">
-      <button class="server-tab active" onclick="changeServer('grief', this)">🔥 Гріф</button>
-      <button class="server-tab" onclick="changeServer('anarchy', this)">☠️ Анархія</button>
-      <button class="server-tab" onclick="changeServer('bedwars', this)">🛏️ Бедварс</button>
-    </div>
-
-    <div class="shop-tabs">
-      <button class="shop-tab active" onclick="changeCategory('ranks', this)">⭐ Ранги</button>
-      <button class="shop-tab" onclick="changeCategory('items', this)">🎁 Предмети</button>
-      <button class="shop-tab" onclick="changeCategory('currency', this)">💰 Валюта</button>
-      <button class="shop-tab" onclick="changeCategory('boosters', this)">⚡ Бустери</button>
-      <button class="shop-tab" onclick="changeCategory('cosmetic', this)">🎨 Косметика</button>
-    </div>
-
-    <div class="shop-grid" id="shopGrid">
-      </div>
-  </div>
 </section>
 
+<!-- ФОРУМ -->
 <section id="forum">
-  <div class="pi">
-    <div class="ph">
-      <div class="sec-lbl">Спільнота</div>
-      <div class="sec-title">Форум <span>SpireWorld</span></div>
+    <div class="page-container">
+        <div class="section-label">Спільнота</div><div class="section-title">Форум <span>SpireWorld</span></div>
+        <div class="forum-categories"><div class="forum-cat"><div class="forum-cat-icon">📢</div><div>Оголошення</div><div class="forum-cat-count">12</div></div>
+        <div class="forum-cat"><div class="forum-cat-icon">💬</div><div>Загальне</div><div class="forum-cat-count">348</div></div>
+        <div class="forum-cat"><div class="forum-cat-icon">💡</div><div>Ідеї</div><div class="forum-cat-count">89</div></div></div>
+        <button class="new-topic" onclick="openForumModal()">✏️ Нова тема</button>
+        <div class="topics-list" id="topicsList"></div>
     </div>
-    <div class="forum-cats">
-      <div class="fcat"><div class="fcat-ico">📢</div><div class="fcat-info"><h3>Оголошення</h3><p>Офіційні новини</p></div><div class="fcat-count">12</div></div>
-      <div class="fcat"><div class="fcat-ico">💬</div><div class="fcat-info"><h3>Загальне</h3><p>Спілкування гравців</p></div><div class="fcat-count">348</div></div>
-      <div class="fcat"><div class="fcat-ico">💡</div><div class="fcat-info"><h3>Ідеї та пропозиції</h3><p>Покращення серверу</p></div><div class="fcat-count">89</div></div>
-      <div class="fcat"><div class="fcat-ico">🐛</div><div class="fcat-info"><h3>Баги та помилки</h3><p>Знайдені проблеми</p></div><div class="fcat-count">54</div></div>
-      <div class="fcat"><div class="fcat-ico">🏆</div><div class="fcat-info"><h3>Досягнення</h3><p>Похвалися успіхами</p></div><div class="fcat-count">176</div></div>
-      <div class="fcat"><div class="fcat-ico">⚖️</div><div class="fcat-info"><h3>Апеляції</h3><p>Оскаржити бан або мут</p></div><div class="fcat-count">23</div></div>
-    </div>
-    <button class="new-topic-btn" onclick="openForumModal()">✏️ Нова тема</button>
-    <div class="forum-top-lbl">Останні теми</div>
-    <div class="post-list" id="postList"></div>
-  </div>
 </section>
 
+<!-- ПРАВИЛА -->
 <section id="rules">
-  <div class="pi">
-    <div class="ph">
-      <div class="sec-lbl">Правила серверу</div>
-      <div class="sec-title">Правила <span>SpireWorld</span></div>
+    <div class="page-container">
+        <div class="section-label">Правила серверу</div><div class="section-title">Правила <span>SpireWorld</span></div>
+        <div class="rules-list" id="rulesList"></div>
     </div>
-    <div class="rules-inner" id="rulesEl"></div>
-  </div>
 </section>
 
-<footer>
-  <div class="fg">
-    <div class="fb">
-      <div class="fl">Spire<span>World</span></div>
-      <p>Найкращий україномовний Minecraft сервер. Приєднуйся і відкрий нові горизонти гри разом із тисячами гравців!</p>
-    </div>
-    <div class="fc">
-      <h4>Навігація</h4>
-      <ul>
-        <li><a onclick="show('home')">Головна</a></li>
-        <li><a onclick="show('start')">Почати грати</a></li>
-        <li><a onclick="show('shop')">Магазин</a></li>
-        <li><a onclick="show('cabinet')">Особистий кабінет</a></li>
-      </ul>
-    </div>
-    <div class="fc">
-      <h4>Ресурси</h4>
-      <ul>
-        <li><a onclick="show('forum')">Форум</a></li>
-        <li><a onclick="show('rules')">Правила</a></li>
-        <li><a>Підтримка</a></li>
-      </ul>
-    </div>
-    <div class="fc">
-      <h4>Контакти</h4>
-      <ul>
-        <li><a>Discord сервер</a></li>
-        <li><a>Telegram канал</a></li>
-        <li><a>YouTube</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="fbot">
-    <p>© 2024 SpireWorld. Не пов'язано з Mojang Studios.</p>
-    <div class="socs">
-      <div class="soc">💬</div><div class="soc">📱</div><div class="soc">▶️</div><div class="soc">🐦</div>
-    </div>
-  </div>
-</footer>
+<footer><div class="footer-grid"><div class="footer-brand"><div class="brand">Spire<span>World</span></div><p>Найкращий україномовний Minecraft сервер</p></div>
+<div class="footer-col"><h4>Навігація</h4><a onclick="showPage('home')">Головна</a><br><a onclick="showPage('cabinet')">Кабінет</a><br><a onclick="showPage('shop')">Магазин</a></div>
+<div class="footer-col"><h4>Ресурси</h4><a onclick="showPage('forum')">Форум</a><br><a onclick="showPage('rules')">Правила</a></div></div>
+<div class="footer-bottom"><p>© 2024 SpireWorld</p><div class="socials" style="display:flex; gap:10px"><div style="width:35px;height:35px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center">💬</div></div></div></footer>
 
-<div class="overlay" id="topupModalOverlay" onclick="closeModal(event, 'topupModalOverlay')">
-  <div class="modal">
-    <h2>Поповнення балансу</h2>
-    <p>Заповни заявку, щоб ми виставили рахунок на пошту.</p>
+<!-- Модальні вікна -->
+<div id="supportModal" class="modal-overlay"><div class="modal"><h2>📞 Технічна підтримка</h2><p>Опишіть проблему, ми відповімо на email</p>
+<input type="text" id="supportName" placeholder="Ваш нікнейм">
+<input type="email" id="supportEmail" placeholder="Ваш Email (для відповіді)">
+<textarea id="supportMessage" rows="3" placeholder="Опишіть проблему..."></textarea>
+<div class="modal-buttons"><button class="btn-secondary" onclick="closeSupportModal()">Скасувати</button><button class="btn-primary" onclick="sendSupport()">📧 Відправити</button></div></div></div>
+
+<div id="topupModal" class="modal-overlay"><div class="modal"><h2>💳 Поповнення балансу</h2><p>Введіть суму та ваш email</p>
+<input type="number" id="topupAmount" placeholder="Сума (₴)" min="10">
+<input type="email" id="topupEmail" placeholder="Ваш Email для рахунку">
+<div class="modal-buttons"><button class="btn-secondary" onclick="closeTopupModal()">Скасувати</button><button class="btn-primary" onclick="requestTopup()">Оформити заявку</button></div></div></div>
+
+<div id="forumModal" class="modal-overlay"><div class="modal"><h2>✏️ Нова тема</h2><input type="text" id="topicTitle" placeholder="Заголовок"><textarea id="topicContent" rows="3" placeholder="Текст повідомлення..."></textarea><div class="modal-buttons"><button class="btn-secondary" onclick="closeForumModal()">Скасувати</button><button class="btn-primary" onclick="createTopic()">Опублікувати</button></div></div></div>
+
+<div id="toast" class="toast"></div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+    import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+
+    const firebaseConfig = { 
+        apiKey: "AIzaSyBGRcQS_RNA4DWboldCjzBhkvLev2n8fLs", 
+        authDomain: "spireworld-30c51.firebaseapp.com", 
+        projectId: "spireworld-30c51", 
+        storageBucket: "spireworld-30c51.firebasestorage.app", 
+        messagingSenderId: "1029200336194", 
+        appId: "1:1029200336194:web:8b64a1a3d853b750b9e4db" 
+    };
     
-    <form onsubmit="submitTopUpForm(event)">
-      <input type="hidden" name="_captcha" value="false">
-      
-      <input type="number" name="Сума_поповнення" id="topupAmount" placeholder="Сума поповнення (₴)..." required min="10">
-      <input type="email" name="Email" placeholder="Твій Email для чека..." required>
-      
-      <div class="mfoot">
-        <button type="button" class="m-cancel" onclick="closeModal(null, 'topupModalOverlay')">Скасувати</button>
-        <button type="submit" class="btn-pri" id="submitTopupBtn">Оформити заявку</button>
-      </div>
-    </form>
-  </div>
-</div>
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    console.log('✅ Firebase підключено!');
 
-<div class="overlay" id="adminModalOverlay" onclick="closeModal(event, 'adminModalOverlay')">
-  <div class="modal" style="border-color: #EF4444;">
-    <h2 style="color: #EF4444;">🔒 Адмін-панель</h2>
-    <p>Видача балансу гравцям.</p>
+    let currentUser = localStorage.getItem('spireworld_current_user');
     
-    <input type="text" id="adminTarget" placeholder="Нікнейм гравця...">
-    <input type="number" id="adminAmount" placeholder="Сума (₴) для видачі...">
-    
-    <div class="mfoot">
-      <button class="m-cancel" onclick="closeModal(null, 'adminModalOverlay')">Закрити</button>
-      <button class="btn-pri" style="background:#EF4444;" onclick="giveMoney()">Видати гроші</button>
-    </div>
-  </div>
-</div>
-
-<div class="overlay" id="forumModalOverlay" onclick="closeModal(event, 'forumModalOverlay')">
-  <div class="modal">
-    <h2>Нова тема</h2>
-    <p>Поділись думкою зі спільнотою SpireWorld</p>
-    <input type="text" placeholder="Заголовок теми...">
-    <input type="text" placeholder="Категорія...">
-    <textarea placeholder="Текст повідомлення..."></textarea>
-    <div class="mfoot">
-      <button class="m-cancel" onclick="closeModal(null, 'forumModalOverlay')">Скасувати</button>
-      <button class="btn-pri" onclick="submitForum()">Опублікувати</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// Навігація
-function show(id){
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function countUp(el,target){
-  let v=0, step=Math.ceil(target/50);
-  const t=setInterval(()=>{
-    v=Math.min(v+step,target);
-    el.textContent=v.toLocaleString('uk');
-    if(v>=target) clearInterval(t);
-  }, 22);
-}
-
-window.addEventListener('load', () => {
-  show('home');
-  countUp(document.getElementById('s1'), 247);
-  countUp(document.getElementById('s2'), 12480);
-  countUp(document.getElementById('s3'), 387);
-  countUp(document.getElementById('s4'), 6);
-  checkCabinetStatus();
-  renderShop();
-  renderForum();
-  renderRules();
-});
-
-function copyIP(){
-  navigator.clipboard.writeText('play.spireworld.ua').then(() => toast('IP скопійовано!'));
-}
-
-function toast(msg){
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 3000);
-}
-
-function closeModal(e, modalId) {
-  const ov = document.getElementById(modalId);
-  if(!e || e.target === ov) ov.classList.remove('open');
-}
-
-// --- БАЗА ДАНИХ (Локальна) ---
-let usersDB = JSON.parse(localStorage.getItem('spireworld_db')) || {};
-let currentUser = localStorage.getItem('spireworld_current_user');
-
-// --- АВТОРИЗАЦІЯ ТА КАБІНЕТ ---
-function switchAuthTab(tab) {
-  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-  
-  if(tab === 'login') {
-    document.querySelectorAll('.auth-tab')[0].classList.add('active');
-    document.getElementById('loginForm').classList.add('active');
-  } else {
-    document.querySelectorAll('.auth-tab')[1].classList.add('active');
-    document.getElementById('registerForm').classList.add('active');
-  }
-}
-
-function registerCabinet() {
-  const nick = document.getElementById('regNick').value.trim();
-  const pass = document.getElementById('regPass').value.trim();
-
-  if(nick.length < 3 || pass.length < 3) return toast('❌ Нік і пароль мають бути від 3 символів');
-  if(usersDB[nick]) return toast('❌ Акаунт з таким ніком вже існує!');
-
-  usersDB[nick] = { password: pass, balance: 0, inventory: [] };
-  localStorage.setItem('spireworld_db', JSON.stringify(usersDB));
-  
-  toast('✅ Успішна реєстрація! Тепер увійди.');
-  switchAuthTab('login');
-  document.getElementById('logNick').value = nick;
-  document.getElementById('regNick').value = '';
-  document.getElementById('regPass').value = '';
-}
-
-function loginCabinet() {
-  const nick = document.getElementById('logNick').value.trim();
-  const pass = document.getElementById('logPass').value.trim();
-
-  if(!usersDB[nick]) return toast('❌ Такого акаунта не існує!');
-  if(usersDB[nick].password !== pass) return toast('❌ Неправильний пароль!');
-
-  currentUser = nick;
-  localStorage.setItem('spireworld_current_user', nick);
-  document.getElementById('logNick').value = '';
-  document.getElementById('logPass').value = '';
-  toast('✅ Вхід виконано!');
-  checkCabinetStatus();
-}
-
-function logoutCabinet() {
-  currentUser = null;
-  localStorage.removeItem('spireworld_current_user');
-  toast('👋 Ви вийшли з акаунта');
-  checkCabinetStatus();
-}
-
-function checkCabinetStatus() {
-  if(currentUser && usersDB[currentUser]) {
-    document.getElementById('cabAuthBox').style.display = 'none';
-    document.getElementById('cabProfileBox').style.display = 'block';
-    
-    document.getElementById('cabName').textContent = currentUser;
-    document.getElementById('cabAvatar').textContent = currentUser.charAt(0).toUpperCase();
-    document.getElementById('cabBalance').textContent = usersDB[currentUser].balance;
-    
-    const invList = document.getElementById('cabInventoryList');
-    const items = usersDB[currentUser].inventory || [];
-    if(items.length === 0) {
-      invList.innerHTML = '<li style="color:var(--text3); font-size:12px;">Поки що нічого не куплено.</li>';
-    } else {
-      invList.innerHTML = items.map(item => `<li class="inv-item">${item} <span>✓ Активно</span></li>`).join('');
+    function toast(msg) { 
+        let el = document.getElementById('toast'); 
+        el.textContent = msg; 
+        el.classList.add('show'); 
+        setTimeout(() => el.classList.remove('show'), 3000); 
     }
-  } else {
-    document.getElementById('cabAuthBox').style.display = 'block';
-    document.getElementById('cabProfileBox').style.display = 'none';
-  }
-}
+    
+    window.showPage = function(id) { 
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active')); 
+        document.getElementById(id).classList.add('active'); 
+        window.scrollTo({ top: 0 }); 
+    };
+    
+    window.copyIP = function() { 
+        navigator.clipboard.writeText('play.spireworld.ua'); 
+        toast('✅ IP скопійовано!'); 
+    };
 
-// --- ДАНІ МАГАЗИНУ (БЕЗ СКОРОЧЕНЬ, УСІ КАТЕГОРІЇ) ---
-const shopData = {
-  grief: {
-    ranks: [
-      {icon:'🔪',name:'Ранг GRIEFER',color:'#EF4444',desc:'Базовий ранг для старту на Гріфі',price:'99',unit:'₴/міс',perks:['Кіт Griefer раз на 2 дні','/tpa без затримки','3 регіони по 50x50','Спеціальний префікс']},
-      {icon:'🔥',name:'Ранг WARLORD',color:'#F59E0B',pop:true,desc:'Популярний ранг для кланових гравців',price:'199',unit:'₴/міс',perks:['Кіт Warlord (Алмази)','Доступ до /fly у своєму рг','5 регіонів по 100x100','/repair раз на 12 годин']},
-      {icon:'🐉',name:'Ранг DRAGON',color:'#8B5CF6',desc:'Максимальна влада на сервері',price:'399',unit:'₴/міс',perks:['Нескінченний /fly','10 величезних регіонів','Імунітет до кіку','Кіт Dragon (Незерит)']}
-    ],
-    items: [
-      {icon:'⚔️',name:'Меч Бога',color:'#EF4444',desc:'Найкращий меч для PvP',price:'49',unit:'₴',perks:['Незеритовий меч','Гострота V, Міцність III','Відкидання II','Не ламається']},
-      {icon:'🛡️',name:'Кіт Захисту',color:'#38BDF8',desc:'Повний сет броні',price:'79',unit:'₴',perks:['Незеритова броня','Захист IV','Лагодження','Шипи III']}
-    ],
-    currency: [
-      {icon:'💰',name:'10 000 GriefCoins',color:'#F59E0B',desc:'Для скупки ресурсів на аукціоні',price:'29',unit:'₴',perks:['Миттєве зарахування','Можна передавати']},
-      {icon:'💎',name:'50 000 GriefCoins',color:'#38BDF8',desc:'Середній пак для розвитку бази',price:'129',unit:'₴',perks:['Миттєве зарахування','Бонус +5 000']},
-      {icon:'👑',name:'250 000 GriefCoins',color:'#F26419',desc:'Економічне домінування',price:'499',unit:'₴',perks:['Бонус +50 000','Ексклюзивний тег [БАГАЧ]']}
-    ],
-    boosters: [
-      {icon:'⚡',name:'XP Бустер x2',color:'#84CC16',desc:'Подвоює отриманий досвід',price:'39',unit:'₴/доба',perks:['Діє 24 години','Працює на мобів та руду']},
-      {icon:'💸',name:'Економічний Бустер',color:'#FBBF24',desc:'Більше монет з мобів',price:'89',unit:'₴/тиждень',perks:['Діє 7 днів','x2 дроп монет']}
-    ],
-    cosmetic: [
-      {icon:'🦋',name:'Вогняні Крила',color:'#EF4444',desc:'Крутий ефект вогню',price:'59',unit:'₴',perks:['Анімація крил','Видно всім','Назавжди']},
-      {icon:'👑',name:'Корона Гріфера',color:'#F59E0B',desc:'Світиться над головою',price:'79',unit:'₴',perks:['Золоті партикли','Ефект корони','Назавжди']}
-    ]
-  },
-  anarchy: {
-    ranks: [
-      {icon:'☠️',name:'Ранг SURVIVOR',color:'#9CA3AF',desc:'Трохи легше виживання',price:'79',unit:'₴/назавжди',perks:['Вхід на повний сервер','Жовтий нік у чаті','Збереження інвентарю (шанс 10%)']},
-      {icon:'🏴',name:'Ранг PUNK',color:'#10B981',desc:'Для справжніх анархістів',price:'149',unit:'₴/назавжди',perks:['Доступ до приватної бази координат','Шанс збереження 30%','/ec (Ендер скриня)']},
-      {icon:'🌋',name:'Ранг OVERLORD',color:'#DC2626',pop:true,desc:'Король хаосу',price:'349',unit:'₴/назавжди',perks:['Шанс збереження 50%','Доступ до команди /hat','Кольоровий чат','Пріоритет у черзі']}
-    ],
-    items: [
-      {icon:'📦',name:'Шалкер Досвіду',color:'#10B981',desc:'Повний шалкер пляшечок досвіду',price:'59',unit:'₴',perks:['27 стаків досвіду','Видача через /cart']},
-      {icon:'🍏',name:'Стак Чарівних Яблук',color:'#F59E0B',desc:'64 зачарованих золотих яблук',price:'129',unit:'₴',perks:['Необхідно для PvP','Миттєва видача']}
-    ],
-    currency: [
-      {icon:'🪙',name:'1 000 Анархо-Монет',color:'#9CA3AF',desc:'Для торгівлі з NPC',price:'39',unit:'₴',perks:['Миттєва видача','Без комісії']},
-      {icon:'💰',name:'5 000 Анархо-Монет',color:'#F59E0B',desc:'Великий запас',price:'149',unit:'₴',perks:['Миттєва видача','Знижка 15%']}
-    ],
-    boosters: [
-      {icon:'🛡️',name:'Бустер Захисту',color:'#DC2626',desc:'Зменшує урон на 10%',price:'99',unit:'₴/доба',perks:['Діє 24 години','Працює в PvP']}
-    ],
-    cosmetic: [
-      {icon:'☠️',name:'Аура Черепів',color:'#1C1410',desc:'Темна енергія навколо тебе',price:'69',unit:'₴',perks:['Видно всім','Назавжди']}
-    ]
-  },
-  bedwars: {
-    ranks: [
-      {icon:'🗡️',name:'Ранг IRON',color:'#D1D5DB',desc:'Для любителів BedWars',price:'49',unit:'₴/міс',perks:['Префікс [IRON]','Вибір карти','Унікальні ефекти вбивства']},
-      {icon:'🪙',name:'Ранг GOLD',color:'#FBBF24',pop:true,desc:'Золотий стандарт',price:'109',unit:'₴/міс',perks:['Усе з IRON','Кастомні звуки перемоги','Множник коїнів x2']},
-      {icon:'💎',name:'Ранг DIAMOND',color:'#38BDF8',desc:'Еліта Бедварсу',price:'199',unit:'₴/міс',perks:['Усе з GOLD','Множник коїнів x3','Ексклюзивні танці у лоббі','Анімований префікс']}
-    ],
-    items: [
-      {icon:'🛏️',name:'Скін: Дракон',color:'#8B5CF6',desc:'Замінює стандартне ліжко',price:'39',unit:'₴',perks:['Унікальна модель','Видно всій команді','Назавжди']},
-      {icon:'🛏️',name:'Скін: НЛО',color:'#10B981',desc:'Футуристичне ліжко',price:'39',unit:'₴',perks:['Унікальна модель','Світиться у темряві','Назавжди']}
-    ],
-    currency: [
-      {icon:'🪙',name:'5 000 Лоббі-Коїнів',color:'#FBBF24',desc:'Для покупки косметики',price:'39',unit:'₴',perks:['Купівля ефектів','Купівля танців']},
-      {icon:'💎',name:'15 000 Лоббі-Коїнів',color:'#38BDF8',desc:'Великий запас для кастомізації',price:'99',unit:'₴',perks:['Купівля скінів ліжка','Сліди від стріл']}
-    ],
-    boosters: [
-      {icon:'🏆',name:'Бустер Перемог x2',color:'#F59E0B',desc:'Подвоює рейтинг',price:'59',unit:'₴/тиждень',perks:['Діє 7 днів','Допомагає вийти в ТОП']}
-    ],
-    cosmetic: [
-      {icon:'🎯',name:'Ефект стріли: Блискавка',color:'#38BDF8',desc:'При попаданні б\'є блискавка',price:'49',unit:'₴',perks:['Класний звук','Назавжди']},
-      {icon:'💀',name:'Смерть: Вибух TNT',color:'#EF4444',desc:'Коли ти вбиваєш, ворог вибухає',price:'69',unit:'₴',perks:['Епічна анімація','Назавжди']}
-    ]
-  }
-};
+    // ========== АВТОРИЗАЦІЯ ==========
+    window.switchAuthTab = function(tab) {
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+        if (tab === 'login') { 
+            document.querySelectorAll('.auth-tab')[0].classList.add('active'); 
+            document.getElementById('loginForm').classList.add('active'); 
+        } else { 
+            document.querySelectorAll('.auth-tab')[1].classList.add('active'); 
+            document.getElementById('registerForm').classList.add('active'); 
+        }
+    };
 
-let currentServer = 'grief';
-let currentCategory = 'ranks';
+    window.userRegister = async function() {
+        let nick = document.getElementById('regNick').value.trim();
+        let pass = document.getElementById('regPass').value.trim();
+        if (nick.length < 3 || pass.length < 3) { toast('❌ Мінімум 3 символи'); return; }
+        const userRef = ref(database, `users/${nick}`);
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) { toast('❌ Користувач вже існує'); return; }
+        await set(userRef, { password: btoa(pass), balance: 0, inventory: [], rank: 'ГРАВЕЦЬ' });
+        toast('✅ Реєстрація успішна! Увійдіть');
+        switchAuthTab('login');
+        document.getElementById('loginNick').value = nick;
+        document.getElementById('regNick').value = '';
+        document.getElementById('regPass').value = '';
+    };
 
-function changeServer(serverName, btn) {
-  currentServer = serverName;
-  document.querySelectorAll('.server-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  renderShop();
-}
+    window.userLogin = async function() {
+        let nick = document.getElementById('loginNick').value.trim();
+        let pass = document.getElementById('loginPass').value.trim();
+        const userRef = ref(database, `users/${nick}`);
+        const snapshot = await get(userRef);
+        if (!snapshot.exists()) { toast('❌ Користувача не існує'); return; }
+        const userData = snapshot.val();
+        if (atob(userData.password) !== pass) { toast('❌ Неправильний пароль'); return; }
+        currentUser = nick;
+        localStorage.setItem('spireworld_current_user', nick);
+        toast(`✅ Ласкаво просимо, ${nick}!`);
+        updateCabinetUI();
+        document.getElementById('loginNick').value = '';
+        document.getElementById('loginPass').value = '';
+    };
 
-function changeCategory(catName, btn) {
-  currentCategory = catName;
-  document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  renderShop();
-}
-
-function renderShop() {
-  const items = shopData[currentServer][currentCategory] || [];
-  const grid = document.getElementById('shopGrid');
-  
-  if (items.length === 0) {
-    grid.innerHTML = '<p style="color:var(--text3); font-size:14px; grid-column: 1/-1; text-align:center;">У цій категорії поки немає товарів.</p>';
-    return;
-  }
-
-  grid.innerHTML = items.map(item => `
-    <div class="dc${item.pop ? ' pop' : ''}">
-      ${item.pop ? '<div class="pop-badge">⭐ Хіт</div>' : ''}
-      <div class="dc-top" style="background:${item.color}18">${item.icon}</div>
-      <div class="dc-body">
-        <div class="dc-name" style="color:${item.color}">${item.name}</div>
-        <div class="dc-desc">${item.desc}</div>
-        <ul class="dc-perks">${item.perks.map(p => `<li>${p}</li>`).join('')}</ul>
-        <div class="dc-foot">
-          <div class="dc-price">${item.price} <small>${item.unit}</small></div>
-          <button class="btn-buy" onclick="buyItemFromBalance('${item.name}', ${item.price})">Купити</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// --- ЛОГІКА КУПІВЛІ ---
-function buyItemFromBalance(itemName, price) {
-  if(!currentUser) {
-    show('cabinet');
-    return toast('❌ Спершу увійдіть в особистий кабінет!');
-  }
-  
-  if(usersDB[currentUser].balance < price) {
-    show('cabinet');
-    return toast('❌ Недостатньо коштів! Поповніть баланс.');
-  }
-
-  usersDB[currentUser].balance -= price;
-  if(!usersDB[currentUser].inventory) usersDB[currentUser].inventory = [];
-  usersDB[currentUser].inventory.push(itemName);
-  
-  localStorage.setItem('spireworld_db', JSON.stringify(usersDB));
-  
-  toast(`✅ Успішно куплено: ${itemName}!`);
-  checkCabinetStatus();
-}
-
-// --- ПОПОВНЕННЯ (FORMSUBMIT) ---
-function openTopUpModal() {
-  document.getElementById('topupModalOverlay').classList.add('open');
-}
-
-function submitTopUpForm(event) {
-  event.preventDefault();
-  const form = event.target;
-  const btn = document.getElementById('submitTopupBtn');
-  btn.textContent = 'Відправка...';
-  btn.disabled = true;
-
-  const formData = new FormData(form);
-  formData.append("Нікнейм_для_зарахування", currentUser);
-
-  fetch("https://formsubmit.co/ajax/simpleworld237@gmail.com", {
-      method: "POST",
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-  })
-  .then(response => response.json())
-  .then(data => {
-      closeModal(null, 'topupModalOverlay');
-      toast('✅ Заявка відправлена! Очікуй лист на Email.');
-      form.reset();
-      btn.textContent = 'Оформити заявку';
-      btn.disabled = false;
-  })
-  .catch(error => {
-      toast('❌ Помилка. Спробуй пізніше.');
-      btn.textContent = 'Оформити заявку';
-      btn.disabled = false;
-  });
-}
-
-// --- СЕКРЕТНА АДМІН-ПАНЕЛЬ ---
-window.addEventListener('keydown', (e) => {
-  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-    e.preventDefault();
-    if (currentUser === 'vortex') {
-      document.getElementById('adminModalOverlay').classList.add('open');
-    } else {
-      toast('❌ Відмовлено в доступі.');
+    window.userLogout = function() { 
+        currentUser = null; 
+        localStorage.removeItem('spireworld_current_user'); 
+        toast('👋 Ви вийшли'); 
+        updateCabinetUI(); 
+    };
+    
+    async function updateCabinetUI() {
+        if (currentUser) {
+            const snapshot = await get(ref(database, `users/${currentUser}`));
+            if (snapshot.exists()) {
+                let data = snapshot.val();
+                document.getElementById('authBox').style.display = 'none';
+                document.getElementById('profileBox').style.display = 'block';
+                document.getElementById('profileName').textContent = currentUser;
+                document.getElementById('profileAvatar').textContent = currentUser.charAt(0).toUpperCase();
+                document.getElementById('profileBalance').textContent = data.balance || 0;
+                document.getElementById('profileRank').textContent = data.rank || 'ГРАВЕЦЬ';
+                let inv = data.inventory || [];
+                let html = '';
+                if (inv.length === 0) html = '<li style="color:var(--text3)">Поки порожньо</li>';
+                else inv.forEach(i => html += `<li class="inventory-item">${i} <span>✓</span></li>`);
+                document.getElementById('profileInventory').innerHTML = html;
+                return;
+            }
+        }
+        document.getElementById('authBox').style.display = 'block';
+        document.getElementById('profileBox').style.display = 'none';
     }
-  }
-});
 
-function giveMoney() {
-  const targetUser = document.getElementById('adminTarget').value.trim();
-  const amount = parseInt(document.getElementById('adminAmount').value);
+    // ========== ВІДПРАВКА НА ПОШТУ simpleworld237@gmail.com ==========
+    
+    window.sendSupport = async function() {
+        let name = document.getElementById('supportName').value.trim();
+        let email = document.getElementById('supportEmail').value.trim();
+        let message = document.getElementById('supportMessage').value.trim();
+        
+        if (!name || !email || !message) {
+            toast('❌ Заповніть всі поля');
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append('email', 'simpleworld237@gmail.com');
+        formData.append('subject', `📞 Підтримка SpireWorld від ${name}`);
+        formData.append('message', `Нікнейм: ${name}\nEmail гравця: ${email}\nЧас: ${new Date().toLocaleString('uk-UA')}\n\nПовідомлення:\n${message}`);
+        formData.append('_replyto', email);
+        formData.append('_captcha', 'false');
+        
+        try {
+            await fetch('https://formsubmit.co/ajax/simpleworld237@gmail.com', { method: 'POST', body: formData });
+            toast('✅ Звернення відправлено! Відповімо на email');
+            document.getElementById('supportName').value = '';
+            document.getElementById('supportEmail').value = '';
+            document.getElementById('supportMessage').value = '';
+            closeSupportModal();
+        } catch(error) {
+            toast('❌ Помилка, спробуйте пізніше');
+        }
+    };
+    
+    window.requestTopup = async function() {
+        if (!currentUser) {
+            toast('❌ Увійдіть в кабінет');
+            return;
+        }
+        let amount = document.getElementById('topupAmount').value.trim();
+        let playerEmail = document.getElementById('topupEmail').value.trim();
+        
+        if (!amount || amount < 10) {
+            toast('❌ Введіть суму від 10 ₴');
+            return;
+        }
+        if (!playerEmail) {
+            toast('❌ Введіть ваш Email');
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append('email', 'simpleworld237@gmail.com');
+        formData.append('subject', `💰 Поповнення балансу | ${currentUser} | ${amount}₴`);
+        formData.append('message', `Користувач: ${currentUser}\nСума: ${amount} ₴\nEmail гравця: ${playerEmail}\nЧас: ${new Date().toLocaleString('uk-UA')}\n\nДля зарахування: видати баланс через адмін-панель (Ctrl+Shift+A)`);
+        formData.append('_replyto', playerEmail);
+        formData.append('_captcha', 'false');
+        
+        try {
+            await fetch('https://formsubmit.co/ajax/simpleworld237@gmail.com', { method: 'POST', body: formData });
+            toast(`✅ Заявку на ${amount}₴ відправлено! Рахунок надішлемо на ${playerEmail}`);
+            document.getElementById('topupAmount').value = '';
+            document.getElementById('topupEmail').value = '';
+            closeTopupModal();
+        } catch(error) {
+            toast('❌ Помилка, спробуйте пізніше');
+        }
+    };
 
-  if(!usersDB[targetUser]) return toast('❌ Гравця не знайдено в базі!');
-  if(isNaN(amount) || amount <= 0) return toast('❌ Некоректна сума!');
+    // ========== МАГАЗИН ==========
+    const shopData = {
+        grief: { 
+            ranks: [{icon:'🔪',name:'GRIEFER',price:99,perks:['Кіт Griefer','/tpa без затримки']},{icon:'🔥',name:'WARLORD',price:199,popular:true,perks:['/fly','5 регіонів']}], 
+            items: [{icon:'⚔️',name:'Меч Бога',price:49,perks:['Гострота V','Не ламається']}], 
+            currency: [{icon:'💰',name:'10000 GriefCoins',price:29,perks:['Миттєве зарахування']}] 
+        },
+        anarchy: { 
+            ranks: [{icon:'☠️',name:'SURVIVOR',price:79,perks:['Жовтий нік','Шанс збереження']}], 
+            items: [], currency: [] 
+        },
+        bedwars: { 
+            ranks: [{icon:'🗡️',name:'IRON',price:49,perks:['Префікс IRON','Вибір карти']}], 
+            items: [], currency: [] 
+        }
+    };
+    
+    let currentServer = 'grief', currentCategory = 'ranks';
+    
+    window.changeServer = function(s,btn) { 
+        currentServer = s; 
+        document.querySelectorAll('.server-btn').forEach(b=>b.classList.remove('active')); 
+        btn.classList.add('active'); 
+        renderShop(); 
+    };
+    
+    window.changeCategory = function(c,btn) { 
+        currentCategory = c; 
+        document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active')); 
+        btn.classList.add('active'); 
+        renderShop(); 
+    };
+    
+    function renderShop() {
+        let items = shopData[currentServer]?.[currentCategory] || [];
+        let grid = document.getElementById('shopGrid');
+        if (items.length === 0) { grid.innerHTML = '<p style="text-align:center">Товарів немає</p>'; return; }
+        grid.innerHTML = items.map(item => `<div class="product ${item.popular?'popular':''}">${item.popular?'<div class="popular-badge">⭐ Хіт</div>':''}<div class="product-icon">${item.icon}</div><div class="product-body"><div class="product-name">${item.name}</div><ul class="product-perks">${item.perks.map(p=>`<li>${p}</li>`).join('')}</ul><div class="product-footer"><div class="product-price">${item.price} ₴</div><button class="buy-btn" onclick="buyItem('${item.name}',${item.price})">Купити</button></div></div></div>`).join('');
+    }
+    
+    window.buyItem = async function(name, price) {
+        if (!currentUser) { showPage('cabinet'); toast('❌ Увійдіть в кабінет'); return; }
+        let userRef = ref(database, `users/${currentUser}`);
+        let snapshot = await get(userRef);
+        let balance = snapshot.val()?.balance || 0;
+        if (balance < price) { toast('❌ Недостатньо коштів'); return; }
+        let inventory = snapshot.val()?.inventory || [];
+        inventory.push(name);
+        await update(userRef, { balance: balance - price, inventory: inventory });
+        toast(`✅ Куплено: ${name}`);
+        updateCabinetUI();
+    };
+    renderShop();
 
-  usersDB[targetUser].balance += amount;
-  localStorage.setItem('spireworld_db', JSON.stringify(usersDB));
-  
-  toast(`✅ Видано ${amount}₴ гравцю ${targetUser}!`);
-  document.getElementById('adminTarget').value = '';
-  document.getElementById('adminAmount').value = '';
-  
-  if(currentUser === targetUser) checkCabinetStatus();
-}
+    // ========== ФОРУМ ==========
+    let forumTopics = [
+        {icon:'📢',title:'Оновлення 2.5 — новий PvP-ліг!',author:'Admin_Vlad',time:'2 години тому',replies:34},
+        {icon:'💬',title:'Як найшвидше прокачати острів у SkyBlock?',author:'SkyKing_Oleg',time:'5 годин тому',replies:18}
+    ];
+    
+    function renderForum() { 
+        document.getElementById('topicsList').innerHTML = forumTopics.map(t => `<div class="topic-item"><div class="topic-avatar">${t.icon}</div><div class="topic-info"><div class="topic-title">${t.title}</div><div class="topic-meta">${t.author} · ${t.time}</div></div><div><div class="replies-number">${t.replies}</div></div></div>`).join(''); 
+    }
+    renderForum();
+    
+    window.openForumModal = function() { document.getElementById('forumModal').classList.add('open'); };
+    window.closeForumModal = function() { document.getElementById('forumModal').classList.remove('open'); };
+    window.createTopic = function() {
+        let title = document.getElementById('topicTitle').value.trim();
+        let content = document.getElementById('topicContent').value.trim();
+        if (!title || !content) { toast('❌ Заповніть всі поля'); return; }
+        forumTopics.unshift({icon:'💬',title:title,author:currentUser || 'Гість',time:'щойно',replies:0});
+        renderForum();
+        closeForumModal();
+        document.getElementById('topicTitle').value = '';
+        document.getElementById('topicContent').value = '';
+        toast('✅ Тему опубліковано!');
+    };
 
-// --- ФОРУМ (БЕЗ СКОРОЧЕНЬ) ---
-const posts = [
-  {e:'📢',bg:'#FFF7ED',title:'Оновлення 2.5 — новий PvP-ліг!',auth:'Admin_Vlad',cat:'Оголошення',time:'2 год тому',r:34},
-  {e:'🏝️',bg:'#EFF6FF',title:'Як найшвидше прокачати острів у SkyBlock?',auth:'SkyKing_Oleg',cat:'Загальне',time:'5 год тому',r:18},
-  {e:'💡',bg:'#F0FDF4',title:'Пропоную додати аукціон для тварин',auth:'MinerPro_Dasha',cat:'Ідеї',time:'8 год тому',r:7},
-  {e:'🐛',bg:'#FFF1F2',title:'Баг: дублювання предметів у Survival',auth:'BugHunter99',cat:'Баги',time:'10 год тому',r:3},
-  {e:'🏰',bg:'#FFFBEB',title:'Мій перший замок — 300 годин роботи!',auth:'BuildMaster_Vita',cat:'Досягнення',time:'1 день тому',r:52},
-  {e:'⚖️',bg:'#F9FAFB',title:'Апеляція на мут від 24.11',auth:'Player_Mykyta',cat:'Апеляція',time:'1 день тому',r:2}
-];
+    // ========== ПРАВИЛА ==========
+    const rulesArr = [
+        {num:'01',title:'Повага до гравців',desc:'Заборонено ображати, принижувати або погрожувати іншим гравцям.'},
+        {num:'02',title:'Заборона читів',desc:'Будь-яке ПЗ для нечесної переваги заборонено. Бан перманентний.'},
+        {num:'03',title:'Гріферство',desc:'Руйнування чужих будівель поза PvP зонами заборонено.'}
+    ];
+    
+    function renderRules() { 
+        document.getElementById('rulesList').innerHTML = rulesArr.map(r => `<div class="rule"><div class="rule-number">${r.num}</div><div><h3>${r.title}</h3><p>${r.desc}</p></div></div>`).join(''); 
+    }
+    renderRules();
 
-function renderForum() {
-  document.getElementById('postList').innerHTML = posts.map(p => `
-    <div class="post-item">
-      <div class="post-ava" style="background:${p.bg}">${p.e}</div>
-      <div class="post-meta">
-        <div class="post-title">${p.title}</div>
-        <div class="post-info">${p.auth} · ${p.cat} · ${p.time}</div>
-      </div>
-      <div class="post-reps">
-        <div class="pr-n">${p.r}</div>
-        <div class="pr-l">відп.</div>
-      </div>
-    </div>
-  `).join('');
-}
+    // ========== МОДАЛЬНІ ВІКНА ==========
+    window.openSupportModal = function() { document.getElementById('supportModal').classList.add('open'); };
+    window.closeSupportModal = function() { document.getElementById('supportModal').classList.remove('open'); };
+    window.openTopupModal = function() { document.getElementById('topupModal').classList.add('open'); };
+    window.closeTopupModal = function() { document.getElementById('topupModal').classList.remove('open'); };
 
-function openForumModal() {
-  document.getElementById('forumModalOverlay').classList.add('open');
-}
+    // ========== АДМІН-ПАНЕЛЬ (Ctrl+Shift+A) ==========
+    window.addEventListener('keydown', async (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+            e.preventDefault();
+            if (currentUser === 'vortex') {
+                let target = prompt('Нікнейм гравця:');
+                let amount = parseInt(prompt('Сума для видачі (₴):'));
+                if (target && amount) {
+                    let userRef = ref(database, `users/${target}`);
+                    let snap = await get(userRef);
+                    if (snap.exists()) {
+                        let newBalance = (snap.val().balance || 0) + amount;
+                        await update(userRef, { balance: newBalance });
+                        toast(`✅ Видано ${amount}₴ гравцю ${target}`);
+                        if (currentUser === target) updateCabinetUI();
+                    } else {
+                        toast('❌ Гравця не знайдено');
+                    }
+                }
+            } else {
+                toast('❌ Доступ заборонено. Увійдіть як vortex');
+            }
+        }
+    });
 
-function submitForum() {
-  closeModal(null, 'forumModalOverlay');
-  toast('✅ Тема успішно створена!');
-}
-
-// --- ПРАВИЛА (БЕЗ СКОРОЧЕНЬ) ---
-const rules = [
-  {n:'01',title:'Повага до гравців',desc:'Заборонено ображати, принижувати або погрожувати іншим гравцям у чаті, повідомленнях або на форумі. За порушення — мут від 1 год до перманентного.'},
-  {n:'02',title:'Заборона читів і макросів',desc:'Будь-яке ПЗ, що дає нечесну перевагу (автоклікер, X-Ray, fly-hack тощо) — заборонено. Бан перманентний без права апеляції.'},
-  {n:'03',title:'Гріферство',desc:'Знищення чужих будівель, крадіжка з захищених територій, підпал поза PvP-зонами — заборонені. Порушення: бан 7–30 днів.'},
-  {n:'04',title:'Спам та реклама',desc:'Заборонено спамити чат, рекламувати інші сервери, надсилати шкідливі посилання. За рекламу — перм. мут, за шкідливі посилання — бан.'},
-  {n:'05',title:'Один акаунт',desc:'Кожному гравцю — лише один акаунт. Мультиакаунтинг для обходу бану призведе до бану всіх акаунтів.'},
-  {n:'06',title:'Нікнейм',desc:'Нік не повинен містити образливих слів або імітувати нікнейми адміністрації. При порушенні — примусова зміна або бан.'},
-  {n:'07',title:'Шахрайство',desc:'Будь-які форми обману при торгівлі між гравцями заборонені. Адміністрація не несе відповідальності за угоди поза аукціоном.'},
-  {n:'08',title:'Повага до адміністрації',desc:'Рішення адміністраторів є остаточними. Провокації та публічні наїзди на адмін-склад — порушення правил.'}
-];
-
-function renderRules() {
-  document.getElementById('rulesEl').innerHTML = rules.map(r => `
-    <div class="rule-item">
-      <div class="rule-n">${r.n}</div>
-      <div class="rule-b">
-        <h3>${r.title}</h3>
-        <p>${r.desc}</p>
-      </div>
-    </div>
-  `).join('');
-}
+    updateCabinetUI();
 </script>
 </body>
 </html>
